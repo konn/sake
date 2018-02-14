@@ -1,0 +1,131 @@
+
+./Setup.hs,15
+main main1,2
+
+./app/Main.hs,844
+module Main Main4,5
+instance instance29,30
+siteDest, siteSrc, templateDir, cacheDir cacheDir37,38
+siteDest, siteSrc, templateDir,templateDir37,38
+siteDest, siteSrc,siteSrc37,38
+siteDest,siteDest37,38
+siteDest siteDest38,39
+siteSrc siteSrc39,40
+templateDir templateDir40,41
+cacheDir cacheDir41,42
+replaceDir replaceDir43,44
+replaceDir replaceDir44,45
+template template46,47
+template template47,48
+page page49,50
+page page50,51
+readTextFile' readTextFile'52,53
+readTextFile' readTextFile'53,54
+writeTextFile writeTextFile55,56
+writeTextFile writeTextFile56,57
+shOpts shOpts58,59
+shOpts shOpts59,60
+mathField mathField63,64
+mathField mathField64,65
+main main67,68
+main main68,69
+rules rules75,76
+rules rules76,77
+changeMustache changeMustache137,138
+changeMustache changeMustache138,139
+
+./test/Spec.hs,30
+main main0,1
+main main1,2
+
+./src/Web/Sake.hs,29
+module Web.SakeWeb.Sake0,1
+
+./src/Web/Sake/Template.hs,1098
+module Web.Sake.Template Web.Sake.Template2,3
+newtype Context Context22,23
+newtype Context a = Context Context22,23
+newtype Context a = Context { runContext runContext22,23
+instance instance24,25
+metadataField metadataField35,36
+metadataField metadataField36,37
+class Templatable Templatable38,39
+  applyToMetadata :: MonadIO m => tmpl tmpl40,41
+  compileTemplate compileTemplate39,40
+  applyToMetadata applyToMetadata40,41
+applyAsTemplate' applyAsTemplate'42,43
+applyAsTemplate' applyAsTemplate'44,45
+applyTemplate applyTemplate49,50
+applyTemplate applyTemplate52,53
+loadTemplate loadTemplate58,59
+loadTemplate loadTemplate59,60
+loadAndApplyTemplate loadAndApplyTemplate66,67
+loadAndApplyTemplate loadAndApplyTemplate73,74
+field field77,78
+field field78,79
+constField constField82,83
+constField constField83,84
+bodyField bodyField87,88
+bodyField bodyField88,89
+pathField pathField90,91
+pathField pathField91,92
+defaultContext defaultContext93,94
+defaultContext defaultContext94,95
+titleField titleField97,98
+titleField titleField98,99
+
+./src/Web/Sake/Item.hs,808
+module Web.Sake.ItemWeb.Sake.Item2,3
+data Item Item28,29
+data Item a = Item Item28,29
+data Item a = Item { itemBody itemBody28,29
+                   , itemMetadata itemMetadata29,30
+                   , itemIdentifier itemIdentifier30,31
+loadItem loadItem34,35
+loadItem loadItem35,36
+extensionDict extensionDict42,43
+extensionDict extensionDict43,44
+feedReader feedReader49,50
+feedReader feedReader50,51
+isMetaValue isMetaValue53,54
+isMetaValue isMetaValue54,55
+readPandoc readPandoc61,62
+readPandoc readPandoc62,63
+fromMetaValue fromMetaValue81,82
+fromMetaValue fromMetaValue82,83
+runPandoc runPandoc89,90
+runPandoc runPandoc90,91
+writePandoc writePandoc95,96
+writePandoc writePandoc96,97
+compilePandoc compilePandoc104,105
+compilePandoc compilePandoc105,106
+
+./src/Web/Sake/Template/Mustache.hs,297
+module Web.Sake.Template.Mustache Web.Sake.Template.Mustache4,5
+type Mustache Mustache21,22
+instance instance23,24
+applyAsMustache applyAsMustache29,30
+applyAsMustache applyAsMustache30,31
+loadAndApplyMustache loadAndApplyMustache32,33
+loadAndApplyMustache loadAndApplyMustache33,34
+
+./src/Web/Sake/Template/DocTemplates.hs,344
+module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates5,6
+type DocTemplates DocTemplates17,18
+instance instance19,20
+applyAsDocTemplates applyAsDocTemplates25,26
+applyAsDocTemplates applyAsDocTemplates26,27
+loadAndApplyDocTemplates loadAndApplyDocTemplates28,29
+loadAndApplyDocTemplates loadAndApplyDocTemplates29,30
+
+./src/Web/Sake/Identifier.hs,202
+module Web.Sake.Identifier Web.Sake.Identifier1,2
+newtype Identifier Identifier5,6
+newtype Identifier = Identifier Identifier5,6
+newtype Identifier = Identifier { runIdentifier runIdentifier5,6
+
+./src/Web/Sake/Metadata.hs,148
+module Web.Sake.Metadata Web.Sake.Metadata1,2
+type Metadata Metadata10,11
+splitMetadata splitMetadata12,13
+splitMetadata splitMetadata13,14

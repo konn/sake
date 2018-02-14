@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }} - {{ siteName }} </title>
+  <meta name="author" content="{{author}}">
+  {{&meta}}
+  {{#unpublished}}
+  <meta name="robots" content="noindex,nofollow">
+  {{/unpublished}}
+  <meta name="viewport" content="width=device-width">
+  <link rel="canonical" href="{{host}}{{url}}" />
+  {{# math}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta1/katex.min.css" integrity="sha384-VEnyslhHLHiYPca9KFkBB3CMeslnM9CzwjxsEbZTeA21JBm7tdLwKoZmCt3cZTYD" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta1/katex.min.js" integrity="sha384-O4hpKqcplNCe+jLuBVEXC10Rn1QEqAmX98lKAIFBEDxZI0a+6Z2w2n8AEtQbR4CD" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta1/contrib/auto-render.min.js" integrity="sha384-IiI65aU9ZYub2MY9zhtKd1H2ps7xxf+eb2YFG9lX6uRqpXCvBTOidPRCXCrQ++Uc" crossorigin="anonymous"></script>
+  {{/ math}}
+  {{& head}}
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+    <h1>{{title}} <small>{{siteName}}</small></h1>
+    <div><i class="fa fa-calendar" aria-hidden="true"></i> posted on {{date}}</div>
+    </div>
+    <hr>
+        <div id="page-main" class="page-content text-justify">
+          {{#abstract}}
+          <section class="lead" id="abstract">
+            <h2>概要</h2>
+            {{abstract}}
+          </section>
+          {{/abstract}}
+          {{&body}}
+        </div>
+      </div>
+  <footer>
+      <p>
+	Powered by <a href="https://konn.github.io/sake/">Sake</a>, 
+	<a href="http://shakebuild.com">Shake</a>, and
+	<a href="http://johnmacfarlane.net/pandoc/">Pandoc</a>.
+      </p>
+    </footer>
+  {{#math}}
+  <script>
+    renderMathInElement(document.body);
+  </script>
+  {{/math}}
+</body>
+</html>

@@ -1,0 +1,29 @@
+---
+title: Private TeX document
+date: 2018/02/14 21:58:18 JST
+author: Sake Drinkers
+description: |
+  This \TeX file is compiled to both HTML and PDF.
+  Since this is marked *unpublished*, `no-index` meta tag will be added to HTML header.
+unpublished: true
+---
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{\template{title}}
+\author{\template{author}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+ \template{description}
+\end{abstract}
+
+Inline math: $\mathrm{Add}(\omega, \aleph_2) \Vdash 2^{\aleph_0} > \aleph_1$.
+Display math:
+\[
+ \int_{-\infty}^{\infty} e^{-x^2} \mathrm{d}x = \sqrt{\pi}.
+\]
+
+\end{document}

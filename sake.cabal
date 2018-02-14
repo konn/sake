@@ -1,0 +1,242 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 75feaa1c0cafef25ee1c93e66b9d511e2828c2ce4698558decf7881078a7e081
+
+name:           sake
+version:        0.1.0.0
+synopsis:       A simple and extensible static site generator built on top of Shake.
+description:    Please see the README on Github at <https://github.com/konn/sake#readme>
+category:       Web
+homepage:       https://github.com/konn/sake#readme
+bug-reports:    https://github.com/konn/sake/issues
+author:         Hiromi ISHII
+maintainer:     konn.jinro _at_ gmail.com
+copyright:      2018 (c) Hiromi ISHII
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/konn/sake
+
+library
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+  build-depends:
+      HaTeX
+    , aeson
+    , base >=4.7 && <5
+    , blaze-builder
+    , blaze-html
+    , blaze-markup
+    , bytestring
+    , case-insensitive
+    , containers
+    , contravariant
+    , cryptohash-sha256
+    , data-default
+    , directory
+    , doctemplates
+    , filepath
+    , fsnotify
+    , hashable
+    , http-conduit
+    , http-types
+    , latex-crossref
+    , lens
+    , lifted-base
+    , megaparsec
+    , monad-control
+    , monad-loops
+    , mtl
+    , network-uri
+    , pandoc
+    , pandoc-citeproc
+    , pandoc-crossref
+    , pandoc-types
+    , parsec
+    , process
+    , regex-applicative
+    , shake
+    , shakespeare
+    , shelly
+    , skylighting
+    , stache
+    , stm
+    , stm-chans
+    , store
+    , system-fileio
+    , system-filepath
+    , tagsoup
+    , template-haskell
+    , temporary
+    , texmath
+    , text
+    , text-icu
+    , th-lift
+    , time
+    , unordered-containers
+    , vector
+    , wai
+    , wai-app-static
+    , warp
+    , yaml
+  exposed-modules:
+      Web.Sake
+      Web.Sake.Identifier
+      Web.Sake.Item
+      Web.Sake.Metadata
+      Web.Sake.Template
+      Web.Sake.Template.DocTemplates
+      Web.Sake.Template.Mustache
+  other-modules:
+      Paths_sake
+  default-language: Haskell2010
+
+executable site
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      HaTeX
+    , aeson
+    , base >=4.7 && <5
+    , blaze-builder
+    , blaze-html
+    , blaze-markup
+    , bytestring
+    , case-insensitive
+    , containers
+    , contravariant
+    , cryptohash-sha256
+    , data-default
+    , directory
+    , doctemplates
+    , filepath
+    , fsnotify
+    , hashable
+    , http-conduit
+    , http-types
+    , latex-crossref
+    , lens
+    , lifted-base
+    , megaparsec
+    , monad-control
+    , monad-loops
+    , mtl
+    , network-uri
+    , pandoc
+    , pandoc-citeproc
+    , pandoc-crossref
+    , pandoc-types
+    , parsec
+    , process
+    , regex-applicative
+    , sake
+    , shake
+    , shakespeare
+    , shelly
+    , skylighting
+    , stache
+    , stm
+    , stm-chans
+    , store
+    , system-fileio
+    , system-filepath
+    , tagsoup
+    , template-haskell
+    , temporary
+    , texmath
+    , text
+    , text-icu
+    , th-lift
+    , time
+    , unordered-containers
+    , vector
+    , wai
+    , wai-app-static
+    , warp
+    , yaml
+  other-modules:
+      Paths_sake
+  default-language: Haskell2010
+
+test-suite sake-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HaTeX
+    , aeson
+    , base >=4.7 && <5
+    , blaze-builder
+    , blaze-html
+    , blaze-markup
+    , bytestring
+    , case-insensitive
+    , containers
+    , contravariant
+    , cryptohash-sha256
+    , data-default
+    , directory
+    , doctemplates
+    , filepath
+    , fsnotify
+    , hashable
+    , http-conduit
+    , http-types
+    , latex-crossref
+    , lens
+    , lifted-base
+    , megaparsec
+    , monad-control
+    , monad-loops
+    , mtl
+    , network-uri
+    , pandoc
+    , pandoc-citeproc
+    , pandoc-crossref
+    , pandoc-types
+    , parsec
+    , process
+    , regex-applicative
+    , sake
+    , shake
+    , shakespeare
+    , shelly
+    , skylighting
+    , stache
+    , stm
+    , stm-chans
+    , store
+    , system-fileio
+    , system-filepath
+    , tagsoup
+    , template-haskell
+    , temporary
+    , texmath
+    , text
+    , text-icu
+    , th-lift
+    , time
+    , unordered-containers
+    , vector
+    , wai
+    , wai-app-static
+    , warp
+    , yaml
+  other-modules:
+      Paths_sake
+  default-language: Haskell2010

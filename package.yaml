@@ -1,0 +1,112 @@
+name:                sake
+version:             0.1.0.0
+github:              "konn/sake"
+license:             BSD3
+author:              "Hiromi ISHII"
+maintainer:          "konn.jinro _at_ gmail.com"
+copyright:           "2018 (c) Hiromi ISHII"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+synopsis:            A simple and extensible static site generator built on top of Shake.
+category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/konn/sake#readme>
+
+dependencies:
+- HaTeX
+- aeson
+- base >= 4.7 && < 5
+- blaze-builder
+- blaze-html
+- blaze-markup
+- bytestring
+- case-insensitive
+- containers
+- contravariant
+- cryptohash-sha256
+- data-default
+- directory
+- doctemplates
+- filepath
+- fsnotify
+- hashable
+- http-conduit
+- http-types
+- latex-crossref
+- lens
+- lifted-base
+- megaparsec
+- monad-control
+- monad-loops
+- mtl
+- network-uri
+- pandoc
+- pandoc-citeproc
+- pandoc-crossref
+- pandoc-types
+- parsec
+- process
+- regex-applicative
+- shake
+- shakespeare
+- shelly
+- skylighting
+- stache
+- stm
+- stm-chans
+- store
+- system-fileio
+- system-filepath
+- tagsoup
+- template-haskell
+- temporary
+- texmath
+- text
+- text-icu
+- th-lift
+- time
+- unordered-containers
+- vector
+- wai
+- wai-app-static
+- warp
+- yaml
+
+ghc-options:
+- -Wall
+
+library:
+  source-dirs: src
+
+executables:
+  site:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - sake
+    - shake
+    - text
+    - bytestring
+
+tests:
+  sake-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sake
