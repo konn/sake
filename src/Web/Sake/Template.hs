@@ -6,18 +6,22 @@ module Web.Sake.Template ( Context(..)
                          , loadTemplate, loadAndApplyTemplate, pathField
                          , metadataField, field, constField, bodyField
                          , defaultContext, titleField
+                         , objectContext
                          ) where
 import Web.Sake.Identifier
 import Web.Sake.Item
 import Web.Sake.Metadata
 
 import           Control.Monad.IO.Class     (MonadIO)
-import           Data.Aeson                 (ToJSON, toJSON)
+import           Data.Aeson                 (ToJSON, Value (Object), encode,
+                                             toJSON)
 import           Data.Functor.Contravariant (Contravariant (..))
 import qualified Data.HashMap.Strict        as HM
 import           Data.Semigroup             (Semigroup (..))
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
+import qualified Data.Text.Lazy             as LT
+import qualified Data.Text.Lazy.Encoding    as LT
 import           System.FilePath            (takeBaseName)
 
 newtype Context a = Context { runContext :: forall m. MonadIO m => Item a -> m Metadata }
@@ -84,6 +88,13 @@ constField :: ToJSON a => String -> a -> Context b
 constField k v =
   Context $ const $ return $
   HM.singleton (T.pack k) $ toJSON v
+
+objectContext :: ToJSON a => a -> Context b
+objectContext v = Context $ \_ -> do
+  case toJSON v of
+    Object dic -> return dic
+    _          -> error $ "Should be object, but got: " ++ LT.unpack (LT.decodeUtf8 (encode v))
+
 
 bodyField :: ToJSON a => String -> Context a
 bodyField key = field key $ return . itemBody
