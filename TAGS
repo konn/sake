@@ -41,38 +41,45 @@ main main1,2
 ./src/Web/Sake.hs,29
 module Web.SakeWeb.Sake0,1
 
-./src/Web/Sake/Template.hs,1098
+./src/Web/Sake/Template.hs,1181
 module Web.Sake.Template Web.Sake.Template2,3
-newtype Context Context22,23
-newtype Context a = Context Context22,23
-newtype Context a = Context { runContext runContext22,23
-instance instance24,25
-metadataField metadataField35,36
-metadataField metadataField36,37
-class Templatable Templatable38,39
-  applyToMetadata :: MonadIO m => tmpl tmpl40,41
-  compileTemplate compileTemplate39,40
-  applyToMetadata applyToMetadata40,41
-applyAsTemplate' applyAsTemplate'42,43
-applyAsTemplate' applyAsTemplate'44,45
-applyTemplate applyTemplate49,50
-applyTemplate applyTemplate52,53
-loadTemplate loadTemplate58,59
-loadTemplate loadTemplate59,60
-loadAndApplyTemplate loadAndApplyTemplate66,67
-loadAndApplyTemplate loadAndApplyTemplate73,74
-field field77,78
-field field78,79
-constField constField82,83
-constField constField83,84
-bodyField bodyField87,88
-bodyField bodyField88,89
-pathField pathField90,91
-pathField pathField91,92
-defaultContext defaultContext93,94
-defaultContext defaultContext94,95
-titleField titleField97,98
-titleField titleField98,99
+newtype Context Context26,27
+newtype Context a = Context Context26,27
+newtype Context a = Context { runContext runContext26,27
+instance instance28,29
+metadataField metadataField39,40
+metadataField metadataField40,41
+class Templatable Templatable42,43
+  applyToMetadata :: MonadIO m => tmpl tmpl44,45
+  compileTemplate compileTemplate43,44
+  applyToMetadata applyToMetadata44,45
+applyAsTemplate' applyAsTemplate'46,47
+applyAsTemplate' applyAsTemplate'48,49
+applyTemplate applyTemplate53,54
+applyTemplate applyTemplate56,57
+loadTemplate loadTemplate62,63
+loadTemplate loadTemplate63,64
+loadAndApplyTemplate loadAndApplyTemplate70,71
+loadAndApplyTemplate loadAndApplyTemplate77,78
+field field81,82
+field field82,83
+constField constField86,87
+constField constField87,88
+objectContext objectContext91,92
+objectContext objectContext92,93
+bodyField bodyField98,99
+bodyField bodyField99,100
+pathField pathField101,102
+pathField pathField102,103
+defaultContext defaultContext104,105
+defaultContext defaultContext105,106
+titleField titleField108,109
+titleField titleField109,110
+
+./src/Web/Sake/Utils.hs,76
+module Web.Sake.Utils Web.Sake.Utils1,2
+readM readM4,5
+readM readM5,6
 
 ./src/Web/Sake/Item.hs,808
 module Web.Sake.ItemWeb.Sake.Item2,3
@@ -100,23 +107,23 @@ writePandoc writePandoc96,97
 compilePandoc compilePandoc104,105
 compilePandoc compilePandoc105,106
 
-./src/Web/Sake/Template/Mustache.hs,297
-module Web.Sake.Template.Mustache Web.Sake.Template.Mustache4,5
-type Mustache Mustache21,22
-instance instance23,24
-applyAsMustache applyAsMustache29,30
-applyAsMustache applyAsMustache30,31
-loadAndApplyMustache loadAndApplyMustache32,33
-loadAndApplyMustache loadAndApplyMustache33,34
+./src/Web/Sake/Template/Mustache.hs,296
+module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache4,5
+type Mustache Mustache24,25
+instance instance26,27
+applyAsMustache applyAsMustache32,33
+applyAsMustache applyAsMustache33,34
+loadAndApplyMustache loadAndApplyMustache35,36
+loadAndApplyMustache loadAndApplyMustache36,37
 
 ./src/Web/Sake/Template/DocTemplates.hs,344
 module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates5,6
-type DocTemplates DocTemplates17,18
-instance instance19,20
-applyAsDocTemplates applyAsDocTemplates25,26
+type DocTemplates DocTemplates18,19
+instance instance20,21
 applyAsDocTemplates applyAsDocTemplates26,27
-loadAndApplyDocTemplates loadAndApplyDocTemplates28,29
+applyAsDocTemplates applyAsDocTemplates27,28
 loadAndApplyDocTemplates loadAndApplyDocTemplates29,30
+loadAndApplyDocTemplates loadAndApplyDocTemplates30,31
 
 ./src/Web/Sake/Identifier.hs,202
 module Web.Sake.Identifier Web.Sake.Identifier1,2
@@ -129,3 +136,48 @@ module Web.Sake.Metadata Web.Sake.Metadata1,2
 type Metadata Metadata10,11
 splitMetadata splitMetadata12,13
 splitMetadata splitMetadata13,14
+
+./src/Web/Sake/Feed.hs,1028
+module Web.Sake.FeedWeb.Sake.Feed1,2
+rssTemplate rssTemplate20,21
+rssTemplate rssTemplate21,22
+atomTemplate atomTemplate23,24
+atomTemplate atomTemplate24,25
+data FeedConf FeedConf26,27
+data FeedConf = FeedConf FeedConf26,27
+data FeedConf = FeedConf { feedTitle feedTitle26,27
+                         , feedDescription feedDescription27,28
+                         , feedAuthor feedAuthor28,29
+                         , feedRoot feedRoot29,30
+data FeedAuthor FeedAuthor34,35
+data FeedAuthor = FeedAuthor FeedAuthor34,35
+data FeedAuthor = FeedAuthor { authorName authorName34,35
+                             , authorEmail authorEmail35,36
+feedConfOptions feedConfOptions40,41
+feedConfOptions feedConfOptions41,42
+feedAuthorOptions feedAuthorOptions45,46
+feedAuthorOptions feedAuthorOptions46,47
+instance instance50,51
+renderRss renderRss62,63
+renderRss renderRss63,64
+renderAtom renderAtom65,66
+renderAtom renderAtom66,67
+renderFeed renderFeed68,69
+renderFeed renderFeed69,70
+
+./src/Web/Sake/Html.hs,461
+module Web.Sake.HtmlWeb.Sake.Html3,4
+mapTags mapTags24,25
+mapTags mapTags27,28
+withTags withTags41,42
+withTags withTags44,45
+concatMapTags concatMapTags47,48
+concatMapTags concatMapTags50,51
+mapTagTree mapTagTree70,71
+mapTagTree mapTagTree73,74
+shiftHeadersBy shiftHeadersBy93,94
+shiftHeadersBy shiftHeadersBy94,95
+demoteHeaders demoteHeaders111,112
+demoteHeaders demoteHeaders112,113
+getUrls getUrls120,121
+getUrls getUrls121,122

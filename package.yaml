@@ -9,6 +9,7 @@ copyright:           "2018 (c) Hiromi ISHII"
 extra-source-files:
 - README.md
 - ChangeLog.md
+- data/*
 
 # Metadata used when publishing your package
 synopsis:            A simple and extensible static site generator built on top of Shake.
@@ -84,6 +85,13 @@ ghc-options:
 
 library:
   source-dirs: src
+  other-modules:
+  - Web.Sake.Utils
+  default-extensions:
+  - OverloadedStrings
+  - TypeApplications
+  - DeriveAnyClass
+  - DeriveGeneric
 
 executables:
   site:
