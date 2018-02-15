@@ -4,7 +4,8 @@
 -- | Provides @'Templatable'@ instance and utility functions for doctemplates' @'Template'@,
 --   which is mainly used by Pandoc.
 module Web.Sake.Template.DocTemplates
-       (applyAsDocTemplates, loadAndApplyDocTemplates, DocTemplates
+       ( applyAsDocTemplates, loadAndApplyDocTemplates, DocTemplates
+       , module Web.Sake.Template
        ) where
 import Web.Sake.Item
 import Web.Sake.Template

@@ -2,7 +2,10 @@
 {-# LANGUAGE TypeSynonymInstances                        #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 -- | Provides @'Templatable'@ instance and utility functions for mustache @'Template'@s.
-module Web.Sake.Template.Mustache (applyAsMustache, loadAndApplyMustache, Mustache) where
+module Web.Sake.Template.Mustache
+       (applyAsMustache, loadAndApplyMustache, Mustache
+       , module Web.Sake.Template
+       ) where
 import Web.Sake.Identifier
 import Web.Sake.Item
 import Web.Sake.Template
