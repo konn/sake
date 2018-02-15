@@ -8,11 +8,11 @@ module Web.Sake.Template ( Context(..)
                          , defaultContext, titleField
                          , objectContext
                          ) where
+import Web.Sake.Class
 import Web.Sake.Identifier
 import Web.Sake.Item
 import Web.Sake.Metadata
 
-import           Control.Monad.IO.Class     (MonadIO)
 import           Data.Aeson                 (ToJSON, Value (Object), encode,
                                              toJSON)
 import           Data.Functor.Contravariant (Contravariant (..))
@@ -24,7 +24,7 @@ import qualified Data.Text.Lazy             as LT
 import qualified Data.Text.Lazy.Encoding    as LT
 import           System.FilePath            (takeBaseName)
 
-newtype Context a = Context { runContext :: forall m. MonadIO m => Item a -> m Metadata }
+newtype Context a = Context { runContext :: forall m. MonadSake m => Item a -> m Metadata }
 
 instance Contravariant Context where
   contramap f (Context g) = Context (g . fmap f)
@@ -41,17 +41,17 @@ metadataField :: Context a
 metadataField = Context $ return . itemMetadata
 
 class Templatable tmpl where
-  compileTemplate :: MonadIO m => Identifier -> Text -> m (Either String tmpl)
-  applyToMetadata :: MonadIO m => tmpl -> Metadata -> m (Either String Text)
+  compileTemplate :: MonadSake m => Identifier -> Text -> m (Either String tmpl)
+  applyToMetadata :: MonadSake m => tmpl -> Metadata -> m (Either String Text)
 
-applyAsTemplate' :: forall tmpl proxy m. (Templatable tmpl, MonadIO m)
+applyAsTemplate' :: forall tmpl proxy m. (Templatable tmpl, MonadSake m)
                  => proxy tmpl -> Context Text -> Item Text -> m (Item Text)
 applyAsTemplate' _ ctx i@Item{..} = do
   compileTemplate @tmpl itemIdentifier itemBody >>= \case
     Left err   -> fail err
     Right tmpl -> applyTemplate tmpl ctx i
 
-applyTemplate :: (Templatable tmpl, MonadIO m)
+applyTemplate :: (Templatable tmpl, MonadSake m)
               => tmpl -> Context a -> Item a
               -> m (Item Text)
 applyTemplate tmpl ctx i = do
@@ -60,7 +60,7 @@ applyTemplate tmpl ctx i = do
     Right a -> return $ i { itemBody = a }
     Left err -> fail err
 
-loadTemplate :: forall tmpl m. (MonadIO m, Templatable tmpl) => FilePath -> m (Item tmpl)
+loadTemplate :: forall tmpl m. (MonadSake m, Templatable tmpl) => FilePath -> m (Item tmpl)
 loadTemplate fp = do
   i <- loadItem fp
   eith <- compileTemplate (itemIdentifier i) (itemBody i)
@@ -69,7 +69,7 @@ loadTemplate fp = do
     Left err -> error err
 
 loadAndApplyTemplate :: forall tmpl proxy a m.
-                        (MonadIO m, Templatable tmpl)
+                        (MonadSake m, Templatable tmpl)
                      => proxy tmpl     -- ^ Template
                      -> FilePath       -- ^ Template identifier
                      -> Context a      -- ^ Context
@@ -79,7 +79,7 @@ loadAndApplyTemplate _ identifier context item = do
   tpl <- itemBody <$> loadTemplate @tmpl identifier
   applyTemplate tpl context item
 
-field :: ToJSON a => String -> (forall m. MonadIO m => Item b -> m a) -> Context b
+field :: ToJSON a => String -> (forall m. MonadSake m => Item b -> m a) -> Context b
 field k mk = Context $ \i -> do
   v <- mk i
   return $ HM.singleton (T.pack k) $ toJSON v

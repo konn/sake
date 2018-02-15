@@ -2,37 +2,33 @@
 ./Setup.hs,15
 main main1,2
 
-./app/Main.hs,844
+./app/Main.hs,704
 module Main Main4,5
-instance instance29,30
-siteDest, siteSrc, templateDir, cacheDir cacheDir37,38
-siteDest, siteSrc, templateDir,templateDir37,38
-siteDest, siteSrc,siteSrc37,38
-siteDest,siteDest37,38
-siteDest siteDest38,39
-siteSrc siteSrc39,40
-templateDir templateDir40,41
-cacheDir cacheDir41,42
+instance instance28,29
+siteDest, siteSrc, templateDir, cacheDir cacheDir36,37
+siteDest, siteSrc, templateDir,templateDir36,37
+siteDest, siteSrc,siteSrc36,37
+siteDest,siteDest36,37
+siteDest siteDest37,38
+siteSrc siteSrc38,39
+templateDir templateDir39,40
+cacheDir cacheDir40,41
+replaceDir replaceDir42,43
 replaceDir replaceDir43,44
-replaceDir replaceDir44,45
+template template45,46
 template template46,47
-template template47,48
+page page48,49
 page page49,50
-page page50,51
-readTextFile' readTextFile'52,53
-readTextFile' readTextFile'53,54
-writeTextFile writeTextFile55,56
-writeTextFile writeTextFile56,57
-shOpts shOpts58,59
-shOpts shOpts59,60
-mathField mathField63,64
-mathField mathField64,65
-main main67,68
-main main68,69
-rules rules75,76
-rules rules76,77
-changeMustache changeMustache137,138
-changeMustache changeMustache138,139
+shOpts shOpts51,52
+shOpts shOpts52,53
+mathField mathField56,57
+mathField mathField57,58
+main main60,61
+main main61,62
+rules rules68,69
+rules rules69,70
+changeMustache changeMustache128,129
+changeMustache changeMustache129,130
 
 ./test/Spec.hs,30
 main main0,1
@@ -41,7 +37,7 @@ main main1,2
 ./src/Web/Sake.hs,29
 module Web.SakeWeb.Sake0,1
 
-./src/Web/Sake/Template.hs,1181
+./src/Web/Sake/Template.hs,1183
 module Web.Sake.Template Web.Sake.Template2,3
 newtype Context Context26,27
 newtype Context a = Context Context26,27
@@ -50,7 +46,7 @@ instance instance28,29
 metadataField metadataField39,40
 metadataField metadataField40,41
 class Templatable Templatable42,43
-  applyToMetadata :: MonadIO m => tmpl tmpl44,45
+  applyToMetadata :: MonadSake m => tmpl tmpl44,45
   compileTemplate compileTemplate43,44
   applyToMetadata applyToMetadata44,45
 applyAsTemplate' applyAsTemplate'46,47
@@ -76,6 +72,51 @@ defaultContext defaultContext105,106
 titleField titleField108,109
 titleField titleField109,110
 
+./src/Web/Sake/Class.hs,1689
+module Web.Sake.ClassWeb.Sake.Class1,2
+class (MonadIO m) => MonadSake MonadSake25,26
+class (MonadIO m) => MonadSake MonadSake25,26
+  need need26,27
+  needed needed27,28
+  createParentDirectoryFor createParentDirectoryFor29,30
+  createParentDirectoryFor createParentDirectoryFor30,31
+  writeStringFile writeStringFile36,37
+  writeStringFile writeStringFile37,38
+  writeTextFile writeTextFile41,42
+  writeTextFile writeTextFile42,43
+  writeLazyTextFile writeLazyTextFile46,47
+  writeLazyTextFile writeLazyTextFile47,48
+  copyFile' copyFile'53,54
+  copyFile' copyFile'54,55
+  readFile' readFile'59,60
+  readFile' readFile'60,61
+  readTextFile' readTextFile'62,63
+  readTextFile' readTextFile'63,64
+  readLazyTextFile' readLazyTextFile'65,66
+  readLazyTextFile' readLazyTextFile'66,67
+  readBinaryFile' readBinaryFile'68,69
+  readBinaryFile' readBinaryFile'69,70
+  readLazyBinaryFile' readLazyBinaryFile'71,72
+  readLazyBinaryFile' readLazyBinaryFile'72,73
+  putNormal putNormal74,75
+  putLoud putLoud75,76
+  putQuiet putQuiet76,77
+readFileNoDep readFileNoDep78,79
+readFileNoDep readFileNoDep79,80
+readTextFileNoDep readTextFileNoDep81,82
+readTextFileNoDep readTextFileNoDep82,83
+readLazyTextFileNoDep readLazyTextFileNoDep84,85
+readLazyTextFileNoDep readLazyTextFileNoDep85,86
+readBinaryFileNoDep readBinaryFileNoDep87,88
+readBinaryFileNoDep readBinaryFileNoDep88,89
+readLazyBinaryFileNoDep readLazyBinaryFileNoDep90,91
+readLazyBinaryFileNoDep readLazyBinaryFileNoDep91,92
+copyFileNoDep copyFileNoDep93,94
+copyFileNoDep copyFileNoDep94,95
+needing needing96,97
+needing needing97,98
+instance instance100,101
+
 ./src/Web/Sake/Utils.hs,76
 module Web.Sake.Utils Web.Sake.Utils1,2
 readM readM4,5
@@ -83,38 +124,38 @@ readM readM5,6
 
 ./src/Web/Sake/Item.hs,808
 module Web.Sake.ItemWeb.Sake.Item2,3
-data Item Item28,29
-data Item a = Item Item28,29
-data Item a = Item { itemBody itemBody28,29
-                   , itemMetadata itemMetadata29,30
-                   , itemIdentifier itemIdentifier30,31
+data Item Item27,28
+data Item a = Item Item27,28
+data Item a = Item { itemBody itemBody27,28
+                   , itemMetadata itemMetadata28,29
+                   , itemIdentifier itemIdentifier29,30
+loadItem loadItem33,34
 loadItem loadItem34,35
-loadItem loadItem35,36
+extensionDict extensionDict41,42
 extensionDict extensionDict42,43
-extensionDict extensionDict43,44
+feedReader feedReader48,49
 feedReader feedReader49,50
-feedReader feedReader50,51
+isMetaValue isMetaValue52,53
 isMetaValue isMetaValue53,54
-isMetaValue isMetaValue54,55
+readPandoc readPandoc60,61
 readPandoc readPandoc61,62
-readPandoc readPandoc62,63
+fromMetaValue fromMetaValue80,81
 fromMetaValue fromMetaValue81,82
-fromMetaValue fromMetaValue82,83
+runPandoc runPandoc88,89
 runPandoc runPandoc89,90
-runPandoc runPandoc90,91
+writePandoc writePandoc94,95
 writePandoc writePandoc95,96
-writePandoc writePandoc96,97
+compilePandoc compilePandoc103,104
 compilePandoc compilePandoc104,105
-compilePandoc compilePandoc105,106
 
 ./src/Web/Sake/Template/Mustache.hs,296
 module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache4,5
-type Mustache Mustache24,25
-instance instance26,27
+type Mustache Mustache23,24
+instance instance25,26
+applyAsMustache applyAsMustache31,32
 applyAsMustache applyAsMustache32,33
-applyAsMustache applyAsMustache33,34
+loadAndApplyMustache loadAndApplyMustache34,35
 loadAndApplyMustache loadAndApplyMustache35,36
-loadAndApplyMustache loadAndApplyMustache36,37
 
 ./src/Web/Sake/Template/DocTemplates.hs,344
 module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates5,6
@@ -163,7 +204,7 @@ renderRss renderRss63,64
 renderAtom renderAtom65,66
 renderAtom renderAtom66,67
 renderFeed renderFeed68,69
-renderFeed renderFeed69,70
+renderFeed renderFeed70,71
 
 ./src/Web/Sake/Html.hs,461
 module Web.Sake.HtmlWeb.Sake.Html3,4

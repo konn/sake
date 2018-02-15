@@ -9,7 +9,7 @@ copyright:           "2018 (c) Hiromi ISHII"
 extra-source-files:
 - README.md
 - ChangeLog.md
-- data/*
+- data/*.mustache
 
 # Metadata used when publishing your package
 synopsis:            A simple and extensible static site generator built on top of Shake.
@@ -92,6 +92,7 @@ library:
   - TypeApplications
   - DeriveAnyClass
   - DeriveGeneric
+  - MultiParamTypeClasses
 
 executables:
   site:

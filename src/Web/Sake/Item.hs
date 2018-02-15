@@ -4,17 +4,16 @@ module Web.Sake.Item
        ( Item(..), loadItem
        , readPandoc, writePandoc, compilePandoc
        ) where
+import Web.Sake.Class
 import Web.Sake.Identifier
 import Web.Sake.Metadata
 
-import           Control.Monad.IO.Class  (MonadIO (..))
 import qualified Data.Aeson              as A
 import           Data.Hashable           (Hashable)
 import qualified Data.HashMap.Strict     as HM
 import           Data.Maybe              (fromMaybe)
 import           Data.Monoid             ((<>))
 import           Data.Text               (Text)
-import qualified Data.Text.IO            as T
 import qualified Data.Text.Lazy          as LT
 import qualified Data.Text.Lazy.Encoding as LT
 import           GHC.Generics            (Generic)
@@ -32,9 +31,9 @@ data Item a = Item { itemBody       :: a
                    }
             deriving (Read, Show, Eq, Functor, Generic, Hashable)
 
-loadItem :: MonadIO m => FilePath -> m (Item Text)
+loadItem :: MonadSake m => FilePath -> m (Item Text)
 loadItem fp = do
-  eith <- splitMetadata <$> liftIO (T.readFile fp)
+  eith <- splitMetadata <$> readTextFile' fp
   case eith of
     Left err -> error err
     Right (meta, body) ->
@@ -59,7 +58,7 @@ isMetaValue val =
 
 -- | Compile the given @'Item'@ into @'Pandoc'@, taking care of metadatas.
 --   Format is deteremined by extension.
-readPandoc :: MonadIO m => ReaderOptions -> Item Text -> m (Item Pandoc)
+readPandoc :: MonadSake m => ReaderOptions -> Item Text -> m (Item Pandoc)
 readPandoc opts i@Item{..} = do
   let ext    = takeExtension $ runIdentifier itemIdentifier
       format = fromMaybe ext $ lookup (drop 1 ext) extensionDict
@@ -87,13 +86,13 @@ fromMetaValue (MetaString s)    = A.toJSON s
 fromMetaValue (MetaInlines inl) = A.toJSON $ stringify inl
 fromMetaValue (MetaBlocks bls)  = A.toJSON $ stringify bls
 
-runPandoc :: MonadIO m => PandocIO b -> m b
+runPandoc :: MonadSake m => PandocIO b -> m b
 runPandoc act = liftIO (runIO act) >>= \case
     Left err  -> error $ show err
     Right pan -> return pan
 
 -- | Write HTML by Pandoc.
-writePandoc :: MonadIO m => WriterOptions -> Item Pandoc -> m (Item Text)
+writePandoc :: MonadSake m => WriterOptions -> Item Pandoc -> m (Item Text)
 writePandoc opts i@Item{..} = do
   runPandoc $ do
         src <- writeHtml5String
@@ -102,6 +101,6 @@ writePandoc opts i@Item{..} = do
                  itemBody
         return $ i { itemBody = src }
 
-compilePandoc :: MonadIO m => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
+compilePandoc :: MonadSake m => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
 compilePandoc rOpt wOpt i =
   readPandoc rOpt i >>= writePandoc wOpt

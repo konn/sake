@@ -15,7 +15,6 @@ import           Data.Text                      (Text)
 import qualified Data.Text                      as T
 import           Data.Text.ICU.Normalize
 import qualified Data.Text.IO                   as T
-import           Development.Shake
 import           Development.Shake.FilePath
 import           Network.Wai.Application.Static
 import qualified Network.Wai.Handler.Warp       as Warp
@@ -49,12 +48,6 @@ template fp = "_cache" </> "templates" </> fp
 
 page :: FilePath -> FilePath
 page fp = siteDest </> fp
-
-readTextFile' :: FilePath -> Action Text
-readTextFile' fp = need [fp] >> liftIO (T.readFile fp)
-
-writeTextFile :: MonadIO m => FilePath -> Text -> m ()
-writeTextFile fp = liftIO . T.writeFile fp
 
 shOpts :: ShakeOptions
 shOpts = shakeOptions { shakeFiles = "_build"
@@ -100,7 +93,6 @@ rules = do
       then error $ "No source for " ++ show out ++ " found."
       else do
       let fp = head sources
-      need [template "default.mustache", fp]
       putNormal $ "Compiling " ++ show fp ++ " to generate " ++ show out
       let cxt = mconcat [ constField "siteName" "Sake Example"
                         , constField "host" "https://konn.github.io/sake"
@@ -120,7 +112,6 @@ rules = do
     let origFile = replaceDir siteDest siteSrc out
         fp       = origFile -<.> "tex"
     putNormal $ "Compiling " ++ show fp ++ " to generate " ++ show out
-    need [fp]
     i <- applyAsMustache defaultContext . changeMustache =<< loadItem fp
     withTempDir $ \tDir -> do
       let texDest = tDir </> takeFileName fp

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0ef6ebb4252fd0e2e333c6deb48a17c72492457d498d64138df904b677c7ef8a
+-- hash: 6a23b74be7fcdcf864220e9ffd3d1239fed172a6d415329e2609740ea698ec22
 
 name:           sake
 version:        0.1.0.0
@@ -22,9 +22,7 @@ cabal-version:  >= 1.10
 extra-source-files:
     ChangeLog.md
     data/atom.mustache
-    data/atom.mustache~
     data/rss.mustache
-    data/rss.mustache~
     README.md
 
 source-repository head
@@ -34,7 +32,7 @@ source-repository head
 library
   hs-source-dirs:
       src
-  default-extensions: OverloadedStrings TypeApplications DeriveAnyClass DeriveGeneric
+  default-extensions: OverloadedStrings TypeApplications DeriveAnyClass DeriveGeneric MultiParamTypeClasses
   ghc-options: -Wall
   build-depends:
       HaTeX
@@ -62,7 +60,6 @@ library
     , megaparsec
     , monad-control
     , monad-loops
-    , mono-traversable
     , mtl
     , network-uri
     , pandoc
@@ -98,6 +95,7 @@ library
     , yaml
   exposed-modules:
       Web.Sake
+      Web.Sake.Class
       Web.Sake.Feed
       Web.Sake.Html
       Web.Sake.Identifier
@@ -141,7 +139,6 @@ executable site
     , megaparsec
     , monad-control
     , monad-loops
-    , mono-traversable
     , mtl
     , network-uri
     , pandoc
@@ -212,7 +209,6 @@ test-suite sake-test
     , megaparsec
     , monad-control
     , monad-loops
-    , mono-traversable
     , mtl
     , network-uri
     , pandoc

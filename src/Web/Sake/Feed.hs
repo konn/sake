@@ -3,10 +3,10 @@ module Web.Sake.Feed
        ( FeedConf(..), FeedAuthor(..)
        , renderRss, renderAtom
        ) where
+import Web.Sake.Class
 import Web.Sake.Item
 import Web.Sake.Template.Mustache
 
-import           Control.Monad.IO.Class   (MonadIO)
 import           Data.Aeson
 import           Data.Char                (toLower)
 import           Data.Hashable            (Hashable)
@@ -60,13 +60,14 @@ instance ToJSON FeedConf where
 instance FromJSON FeedConf where
   parseJSON = genericParseJSON feedConfOptions
 
-renderRss :: MonadIO m => FeedConf -> Context Text -> [Item Text] -> m Text
+renderRss :: MonadSake m => FeedConf -> Context Text -> [Item Text] -> m Text
 renderRss = renderFeed rssTemplate
 
-renderAtom :: MonadIO m => FeedConf -> Context Text -> [Item Text] -> m Text
+renderAtom :: MonadSake m => FeedConf -> Context Text -> [Item Text] -> m Text
 renderAtom = renderFeed atomTemplate
 
-renderFeed :: (Templatable tmpl, MonadIO m) => tmpl -> FeedConf -> Context Text -> [Item Text] -> m Text
+renderFeed :: (Templatable tmpl, MonadSake m)
+           => tmpl -> FeedConf -> Context Text -> [Item Text] -> m Text
 renderFeed tmpl conf itemCtx is = do
   let itemCtx' = mconcat [bodyField "description", itemCtx]
   items <- mapM (runContext itemCtx') is
