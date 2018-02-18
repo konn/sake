@@ -17,3 +17,7 @@ extra-lib-dirs:
 
 extra-include-dirs:
 - /usr/local/opt/icu4c/include
+
+# build:
+#   haddock: true
+#   haddock-deps: false

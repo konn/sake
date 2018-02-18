@@ -2,33 +2,31 @@
 ./Setup.hs,15
 main main1,2
 
-./app/Main.hs,704
+./app/Main.hs,634
 module Main Main4,5
-instance instance28,29
-siteDest, siteSrc, templateDir, cacheDir cacheDir36,37
-siteDest, siteSrc, templateDir,templateDir36,37
-siteDest, siteSrc,siteSrc36,37
-siteDest,siteDest36,37
-siteDest siteDest37,38
-siteSrc siteSrc38,39
-templateDir templateDir39,40
-cacheDir cacheDir40,41
-replaceDir replaceDir42,43
-replaceDir replaceDir43,44
-template template45,46
-template template46,47
-page page48,49
-page page49,50
-shOpts shOpts51,52
-shOpts shOpts52,53
-mathField mathField56,57
-mathField mathField57,58
-main main60,61
-main main61,62
-rules rules68,69
-rules rules69,70
-changeMustache changeMustache128,129
-changeMustache changeMustache129,130
+instance instance23,24
+siteDest, siteSrc, templateDir templateDir31,32
+siteDest, siteSrc,siteSrc31,32
+siteDest,siteDest31,32
+siteDest siteDest32,33
+siteSrc siteSrc33,34
+templateDir templateDir34,35
+siteConf siteConf36,37
+siteConf siteConf37,38
+replaceDir replaceDir39,40
+replaceDir replaceDir40,41
+template template42,43
+template template43,44
+page page45,46
+page page46,47
+shOpts shOpts48,49
+shOpts shOpts49,50
+mathField mathField53,54
+mathField mathField54,55
+main main57,58
+main main58,59
+changeMustache changeMustache115,116
+changeMustache changeMustache116,117
 
 ./test/Spec.hs,30
 main main0,1
@@ -37,116 +35,175 @@ main main1,2
 ./src/Web/Sake.hs,29
 module Web.SakeWeb.Sake0,1
 
-./src/Web/Sake/Template.hs,1183
+./src/Web/Sake/Template.hs,1515
 module Web.Sake.Template Web.Sake.Template2,3
-newtype Context Context26,27
-newtype Context a = Context Context26,27
-newtype Context a = Context { runContext runContext26,27
-instance instance28,29
-metadataField metadataField39,40
-metadataField metadataField40,41
-class Templatable Templatable42,43
-  applyToMetadata :: MonadSake m => tmpl tmpl44,45
-  compileTemplate compileTemplate43,44
-  applyToMetadata applyToMetadata44,45
-applyAsTemplate' applyAsTemplate'46,47
-applyAsTemplate' applyAsTemplate'48,49
-applyTemplate applyTemplate53,54
-applyTemplate applyTemplate56,57
-loadTemplate loadTemplate62,63
-loadTemplate loadTemplate63,64
-loadAndApplyTemplate loadAndApplyTemplate70,71
-loadAndApplyTemplate loadAndApplyTemplate77,78
-field field81,82
-field field82,83
-constField constField86,87
-constField constField87,88
-objectContext objectContext91,92
-objectContext objectContext92,93
-bodyField bodyField98,99
-bodyField bodyField99,100
-pathField pathField101,102
-pathField pathField102,103
-defaultContext defaultContext104,105
-defaultContext defaultContext105,106
-titleField titleField108,109
-titleField titleField109,110
+import import16,17
+newtype Context Context30,31
+newtype Context a = Context Context30,31
+newtype Context a = Context { runContext runContext30,31
+instance instance32,33
+metadataField metadataField43,44
+metadataField metadataField44,45
+class Templatable Templatable46,47
+  applyToMetadata :: MonadSake m => tmpl tmpl48,49
+  compileTemplate compileTemplate47,48
+  applyToMetadata applyToMetadata48,49
+applyAsTemplate' applyAsTemplate'50,51
+applyAsTemplate' applyAsTemplate'52,53
+applyTemplate applyTemplate57,58
+applyTemplate applyTemplate60,61
+loadTemplate loadTemplate66,67
+loadTemplate loadTemplate67,68
+loadAndApplyTemplate loadAndApplyTemplate74,75
+loadAndApplyTemplate loadAndApplyTemplate81,82
+field field85,86
+field field86,87
+constField constField90,91
+constField constField91,92
+objectContext objectContext95,96
+objectContext objectContext96,97
+bodyField bodyField102,103
+bodyField bodyField103,104
+pathField pathField105,106
+pathField pathField106,107
+defaultContext defaultContext108,109
+defaultContext defaultContext109,110
+titleField titleField112,113
+titleField titleField113,114
+listField listField115,116
+listField listField116,117
+applyTemplateList applyTemplateList119,120
+applyTemplateList applyTemplateList120,121
+applyJoinTemplateList applyJoinTemplateList122,123
+applyJoinTemplateList applyJoinTemplateList124,125
+dynField dynField133,134
+dynField dynField134,135
 
-./src/Web/Sake/Class.hs,1689
-module Web.Sake.ClassWeb.Sake.Class1,2
-class (MonadIO m) => MonadSake MonadSake25,26
-class (MonadIO m) => MonadSake MonadSake25,26
-  need need26,27
-  needed needed27,28
-  createParentDirectoryFor createParentDirectoryFor29,30
-  createParentDirectoryFor createParentDirectoryFor30,31
-  writeStringFile writeStringFile36,37
-  writeStringFile writeStringFile37,38
-  writeTextFile writeTextFile41,42
-  writeTextFile writeTextFile42,43
-  writeLazyTextFile writeLazyTextFile46,47
-  writeLazyTextFile writeLazyTextFile47,48
-  copyFile' copyFile'53,54
-  copyFile' copyFile'54,55
-  readFile' readFile'59,60
-  readFile' readFile'60,61
-  readTextFile' readTextFile'62,63
-  readTextFile' readTextFile'63,64
-  readLazyTextFile' readLazyTextFile'65,66
-  readLazyTextFile' readLazyTextFile'66,67
-  readBinaryFile' readBinaryFile'68,69
-  readBinaryFile' readBinaryFile'69,70
-  readLazyBinaryFile' readLazyBinaryFile'71,72
-  readLazyBinaryFile' readLazyBinaryFile'72,73
-  putNormal putNormal74,75
-  putLoud putLoud75,76
-  putQuiet putQuiet76,77
-readFileNoDep readFileNoDep78,79
-readFileNoDep readFileNoDep79,80
-readTextFileNoDep readTextFileNoDep81,82
-readTextFileNoDep readTextFileNoDep82,83
-readLazyTextFileNoDep readLazyTextFileNoDep84,85
-readLazyTextFileNoDep readLazyTextFileNoDep85,86
-readBinaryFileNoDep readBinaryFileNoDep87,88
-readBinaryFileNoDep readBinaryFileNoDep88,89
-readLazyBinaryFileNoDep readLazyBinaryFileNoDep90,91
-readLazyBinaryFileNoDep readLazyBinaryFileNoDep91,92
-copyFileNoDep copyFileNoDep93,94
-copyFileNoDep copyFileNoDep94,95
-needing needing96,97
-needing needing97,98
-instance instance100,101
+./src/Web/Sake/Class.hs,3248
+module Web.Sake.ClassWeb.Sake.Class3,4
+import import27,28
+class (MonadIO m) => MonadSake MonadSake52,53
+  readFromFile' :: Readable a => FilePath FilePath76,77
+  need need53,54
+  needed needed54,55
+  createParentDirectoryFor createParentDirectoryFor56,57
+  createParentDirectoryFor createParentDirectoryFor57,58
+  writeToFile writeToFile63,64
+  writeToFile writeToFile64,65
+  copyFile' copyFile'70,71
+  copyFile' copyFile'71,72
+  readFromFile' readFromFile'76,77
+  readFromFile' readFromFile'77,78
+  putNormal putNormal80,81
+  putLoud putLoud81,82
+  putQuiet putQuiet82,83
+writeStringFile writeStringFile85,86
+writeStringFile writeStringFile86,87
+writeTextFile writeTextFile89,90
+writeTextFile writeTextFile90,91
+writeLazyTextFile writeLazyTextFile93,94
+writeLazyTextFile writeLazyTextFile94,95
+readStringFile' readStringFile'97,98
+readStringFile' readStringFile'98,99
+readTextFile' readTextFile'101,102
+readTextFile' readTextFile'102,103
+readLazyTextFile' readLazyTextFile'105,106
+readLazyTextFile' readLazyTextFile'106,107
+readFromBinaryFile' readFromBinaryFile'109,110
+readFromBinaryFile' readFromBinaryFile'110,111
+readFromYamlFile' readFromYamlFile'113,114
+readFromYamlFile' readFromYamlFile'114,115
+readFromJSONFile' readFromJSONFile'117,118
+readFromJSONFile' readFromJSONFile'118,119
+readFileNoDep readFileNoDep121,122
+readFileNoDep readFileNoDep122,123
+readTextFileNoDep readTextFileNoDep124,125
+readTextFileNoDep readTextFileNoDep125,126
+readLazyTextFileNoDep readLazyTextFileNoDep127,128
+readLazyTextFileNoDep readLazyTextFileNoDep128,129
+readFromBinaryFileNoDep readFromBinaryFileNoDep130,131
+readFromBinaryFileNoDep readFromBinaryFileNoDep131,132
+readFromFileNoDep readFromFileNoDep134,135
+readFromFileNoDep readFromFileNoDep135,136
+writeBinaryFile writeBinaryFile138,139
+writeBinaryFile writeBinaryFile139,140
+writeYamlFile writeYamlFile142,143
+writeYamlFile writeYamlFile143,144
+writeJSONFile writeJSONFile146,147
+writeJSONFile writeJSONFile147,148
+copyFileNoDep copyFileNoDep150,151
+copyFileNoDep copyFileNoDep151,152
+needing needing155,156
+needing needing156,157
+readBinaryFileNoDep readBinaryFileNoDep158,159
+readBinaryFileNoDep readBinaryFileNoDep159,160
+instance instance162,163
+class Writable Writable180,181
+  writeTo_ :: MonadSake m => FilePath FilePath181,182
+  writeTo_ writeTo_181,182
+newtype Binary Binary206,207
+newtype Binary a = Binary Binary206,207
+newtype Binary a = Binary { runBinary runBinary206,207
+newtype Shown Shown213,214
+newtype Shown a = Shown Shown213,214
+newtype Shown a = Shown { runShown runShown213,214
+newtype Yaml Yaml220,221
+newtype Yaml a = Yaml Yaml220,221
+newtype Yaml a = Yaml { runYaml runYaml220,221
+newtype JSON JSON227,228
+newtype JSON a = JSON JSON227,228
+newtype JSON a = JSON { runJSON runJSON227,228
+class Readable Readable234,235
+class Readable Readable234,235
+  readFrom_ readFrom_235,236
+  decompMetadata decompMetadata236,237
+  decompMetadata decompMetadata237,238
+newtype CopyFile CopyFile281,282
+newtype CopyFile = CopyFile CopyFile281,282
+newtype TempFile TempFile287,288
+newtype TempFile = TempFile TempFile287,288
 
 ./src/Web/Sake/Utils.hs,76
 module Web.Sake.Utils Web.Sake.Utils1,2
 readM readM4,5
 readM readM5,6
 
-./src/Web/Sake/Item.hs,808
+./src/Web/Sake/Orphans.hs,46
+module Web.Sake.Orphans Web.Sake.Orphans0,1
+
+./src/Web/Sake/Item.hs,1044
 module Web.Sake.ItemWeb.Sake.Item2,3
-data Item Item27,28
-data Item a = Item Item27,28
-data Item a = Item { itemBody itemBody27,28
-                   , itemMetadata itemMetadata28,29
-                   , itemIdentifier itemIdentifier29,30
-loadItem loadItem33,34
-loadItem loadItem34,35
-extensionDict extensionDict41,42
-extensionDict extensionDict42,43
-feedReader feedReader48,49
-feedReader feedReader49,50
-isMetaValue isMetaValue52,53
-isMetaValue isMetaValue53,54
-readPandoc readPandoc60,61
-readPandoc readPandoc61,62
-fromMetaValue fromMetaValue80,81
-fromMetaValue fromMetaValue81,82
-runPandoc runPandoc88,89
-runPandoc runPandoc89,90
-writePandoc writePandoc94,95
-writePandoc writePandoc95,96
-compilePandoc compilePandoc103,104
-compilePandoc compilePandoc104,105
+data Item Item28,29
+data Item a = Item Item28,29
+data Item a = Item { itemBody itemBody28,29
+                   , itemMetadata itemMetadata29,30
+                   , itemIdentifier itemIdentifier30,31
+loadItem loadItem35,36
+loadItem loadItem36,37
+loadBinary loadBinary43,44
+loadBinary loadBinary44,45
+loadYaml loadYaml46,47
+loadYaml loadYaml47,48
+loadJSON loadJSON49,50
+loadJSON loadJSON50,51
+loadUnwrapped loadUnwrapped52,53
+loadUnwrapped loadUnwrapped53,54
+extensionDict extensionDict57,58
+extensionDict extensionDict58,59
+feedReader feedReader64,65
+feedReader feedReader65,66
+isMetaValue isMetaValue68,69
+isMetaValue isMetaValue69,70
+readPandoc readPandoc76,77
+readPandoc readPandoc77,78
+fromMetaValue fromMetaValue96,97
+fromMetaValue fromMetaValue97,98
+runPandoc runPandoc104,105
+runPandoc runPandoc105,106
+writePandoc writePandoc110,111
+writePandoc writePandoc111,112
+compilePandoc compilePandoc119,120
+compilePandoc compilePandoc120,121
 
 ./src/Web/Sake/Template/Mustache.hs,296
 module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache4,5
@@ -156,6 +213,18 @@ applyAsMustache applyAsMustache31,32
 applyAsMustache applyAsMustache32,33
 loadAndApplyMustache loadAndApplyMustache34,35
 loadAndApplyMustache loadAndApplyMustache35,36
+
+./src/Web/Sake/Template/Hamlet.hs,402
+module Web.Sake.Template.HamletWeb.Sake.Template.Hamlet5,6
+instance instance32,33
+showSomeException showSomeException40,41
+showSomeException showSomeException41,42
+valueToHamlet valueToHamlet43,44
+valueToHamlet valueToHamlet44,45
+applyAsHamlet applyAsHamlet54,55
+applyAsHamlet applyAsHamlet55,56
+loadAndApplyHamlet loadAndApplyHamlet57,58
+loadAndApplyHamlet loadAndApplyHamlet58,59
 
 ./src/Web/Sake/Template/DocTemplates.hs,344
 module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates5,6
@@ -168,15 +237,15 @@ loadAndApplyDocTemplates loadAndApplyDocTemplates30,31
 
 ./src/Web/Sake/Identifier.hs,202
 module Web.Sake.Identifier Web.Sake.Identifier1,2
-newtype Identifier Identifier5,6
-newtype Identifier = Identifier Identifier5,6
-newtype Identifier = Identifier { runIdentifier runIdentifier5,6
+newtype Identifier Identifier6,7
+newtype Identifier = Identifier Identifier6,7
+newtype Identifier = Identifier { runIdentifier runIdentifier6,7
 
 ./src/Web/Sake/Metadata.hs,148
-module Web.Sake.Metadata Web.Sake.Metadata1,2
-type Metadata Metadata10,11
-splitMetadata splitMetadata12,13
-splitMetadata splitMetadata13,14
+module Web.Sake.Metadata Web.Sake.Metadata4,5
+type Metadata Metadata13,14
+splitMetadata splitMetadata15,16
+splitMetadata splitMetadata16,17
 
 ./src/Web/Sake/Feed.hs,1028
 module Web.Sake.FeedWeb.Sake.Feed1,2
@@ -222,3 +291,51 @@ demoteHeaders demoteHeaders111,112
 demoteHeaders demoteHeaders112,113
 getUrls getUrls120,121
 getUrls getUrls121,122
+
+./src/Web/Sake/Given.hs,1664
+module Web.Sake.GivenWeb.Sake.Given1,2
+data SakeConf SakeConf18,19
+data SakeConf = SakeConf SakeConf18,19
+data SakeConf = SakeConf { destinationDir destinationDir18,19
+                         , cacheDir cacheDir19,20
+                         , sourceDir sourceDir20,21
+                         , ignoreFile ignoreFile21,22
+                         , deployMethod deployMethod22,23
+                         , previewHost previewHost23,24
+                         , previewPort previewPort24,25
+instance instance28,29
+data DeployMethod DeployMethod38,39
+data DeployMethod = DeployCommand DeployCommand38,39
+data DeployMethod = DeployCommand { deployCommand deployCommand38,39
+                  | DeployAction DeployAction39,40
+                  | DeployAction { deployAction deployAction39,40
+withSakeConf withSakeConf43,44
+withSakeConf withSakeConf44,45
+conf conf46,47
+conf conf47,48
+copy copy49,50
+copy copy50,51
+siteContent siteContent54,55
+siteContent siteContent55,56
+cached cached60,61
+cached cached61,62
+dropDest, dropCache, toSourcePath, toCachePath toCachePath66,67
+dropDest, dropCache, toSourcePath,toSourcePath66,67
+dropDest, dropCache,dropCache66,67
+dropDest,dropDest66,67
+dropDest dropDest67,68
+dropCache dropCache68,69
+toSourcePath toSourcePath69,70
+toCachePath toCachePath70,71
+replaceDir replaceDir72,73
+replaceDir replaceDir73,74
+loadItem loadItem75,76
+loadItem loadItem76,77
+loadBinary loadBinary78,79
+loadBinary loadBinary79,80
+loadYaml loadYaml81,82
+loadYaml loadYaml82,83
+loadJSON loadJSON84,85
+loadJSON loadJSON85,86
+clean clean87,88
+clean clean88,89

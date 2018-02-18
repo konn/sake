@@ -1,18 +1,20 @@
 {-# LANGUAGE LambdaCase, RankNTypes, RecordWildCards, ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications, TypeFamilies                               #-}
+{-# LANGUAGE TemplateHaskell, TypeApplications, TypeFamilies              #-}
 module Web.Sake.Template ( Context(..)
                          , Templatable(..)
                          , applyAsTemplate', applyTemplate
                          , loadTemplate, loadAndApplyTemplate, pathField
                          , metadataField, field, constField, bodyField
-                         , defaultContext, titleField
-                         , objectContext
+                         , defaultContext, titleField, listField
+                         , objectContext, applyTemplateList, applyJoinTemplateList
+                         , dynField
                          ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
 import Web.Sake.Item
 import Web.Sake.Metadata
 
+import           Control.Monad              ((<=<))
 import           Data.Aeson                 (ToJSON, Value (Object), encode,
                                              toJSON)
 import           Data.Functor.Contravariant (Contravariant (..))
@@ -22,6 +24,8 @@ import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import qualified Data.Text.Lazy             as LT
 import qualified Data.Text.Lazy.Encoding    as LT
+import           Language.Haskell.TH        (ExpQ, Name, listE, litE, nameBase,
+                                             stringL, varE)
 import           System.FilePath            (takeBaseName)
 
 newtype Context a = Context { runContext :: forall m. MonadSake m => Item a -> m Metadata }
@@ -108,3 +112,28 @@ defaultContext =
 
 titleField :: String -> Context a
 titleField key = field key $ return . takeBaseName . runIdentifier . itemIdentifier
+
+listField :: String -> Context a -> [Item a] -> Context b
+listField key chCtx is = field key $ \ _ -> do
+  mapM (runContext chCtx) is
+
+applyTemplateList :: (Templatable tmpl, MonadSake m) => tmpl -> Context a -> [Item a] -> m Text
+applyTemplateList = applyJoinTemplateList ""
+
+applyJoinTemplateList :: (MonadSake m, Templatable tmpl)
+                      => Text -> tmpl -> Context a -> [Item a] -> m Text
+applyJoinTemplateList sep tmpl cxt is =
+  either error (T.intercalate sep) . sequence
+    <$> mapM (applyToMetadata tmpl <=< runContext cxt) is
+
+-- | Dynamic field, built from variables in scope.
+--
+-- @
+-- applyTemplate tmpl $(dynField ['foo, 'bar, 'baz])
+-- @
+dynField :: [Name] -> ExpQ
+dynField names =
+  let dic = listE
+            [ [| (T.pack $(litE $ stringL $ nameBase n), toJSON $(varE n)) |]
+            | n <- names]
+  in [| HM.fromList $(dic) |]

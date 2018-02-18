@@ -1,8 +1,8 @@
-{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric, LambdaCase #-}
-{-# LANGUAGE RecordWildCards, TypeApplications                        #-}
+{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric, LambdaCase     #-}
+{-# LANGUAGE NoMonomorphismRestriction, RecordWildCards, TypeApplications #-}
 module Web.Sake.Item
-       ( Item(..), loadItem
-       , readPandoc, writePandoc, compilePandoc
+       ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
+       , readPandoc, writePandoc, compilePandoc,
        ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -13,6 +13,7 @@ import           Data.Hashable           (Hashable)
 import qualified Data.HashMap.Strict     as HM
 import           Data.Maybe              (fromMaybe)
 import           Data.Monoid             ((<>))
+import           Data.Store              (Store)
 import           Data.Text               (Text)
 import qualified Data.Text.Lazy          as LT
 import qualified Data.Text.Lazy.Encoding as LT
@@ -31,13 +32,28 @@ data Item a = Item { itemBody       :: a
                    }
             deriving (Read, Show, Eq, Functor, Generic, Hashable)
 
-loadItem :: MonadSake m => FilePath -> m (Item Text)
+-- | Loads item, decomposing metadata if necessary.
+loadItem :: (Readable a, MonadSake m) => FilePath -> m (Item a)
 loadItem fp = do
-  eith <- splitMetadata <$> readTextFile' fp
+  eith <- decompMetadata <$> readFromFile' fp
   case eith of
     Left err -> error err
     Right (meta, body) ->
       return $ Item body meta $ Identifier fp
+
+loadBinary :: (Store a, MonadSake m) => FilePath -> m (Item a)
+loadBinary = loadUnwrapped runBinary
+
+loadYaml :: (MonadSake m, A.FromJSON a) => FilePath -> m (Item a)
+loadYaml = loadUnwrapped runYaml
+
+loadJSON :: (MonadSake m, A.FromJSON a) => FilePath -> m (Item a)
+loadJSON = loadUnwrapped runJSON
+
+loadUnwrapped :: (Readable (f a), MonadSake m) => (f a -> a) -> FilePath -> m (Item a)
+loadUnwrapped unwrap fp = do
+  body <- readFromFile' fp
+  return $ Item (unwrap body) mempty $ Identifier fp
 
 extensionDict :: [(String, String)]
 extensionDict =

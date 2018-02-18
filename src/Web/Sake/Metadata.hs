@@ -1,4 +1,7 @@
-{-# LANGUAGE OverloadedStrings, PatternGuards, TupleSections #-}
+{-# LANGUAGE FlexibleContexts, GADTs, MultiParamTypeClasses      #-}
+{-# LANGUAGE NoMonomorphismRestriction, OverloadedStrings        #-}
+{-# LANGUAGE PartialTypeSignatures, PatternGuards, TupleSections #-}
+{-# LANGUAGE TypeFamilies                                        #-}
 module Web.Sake.Metadata (Metadata, splitMetadata) where
 import           Control.Arrow      (right)
 import qualified Data.Aeson         as A
@@ -18,4 +21,3 @@ splitMetadata src =
       | (yaml, "---" : body) <- L.break (== "---") rest
         -> right (, T.unlines body) $ Y.decodeEither $ T.encodeUtf8 $ T.unlines yaml
     _ -> Right (mempty, src)
-

@@ -8,6 +8,7 @@ module Web.Sake
     , module Web.Sake.Template.Mustache
     , -- * External Modules
       module Development.Shake
+    , module Development.Shake.FilePath
     ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -17,5 +18,6 @@ import Web.Sake.Template
 import Web.Sake.Template.DocTemplates
 import Web.Sake.Template.Mustache
 
-import Development.Shake hiding (copyFile', need, needed, putLoud, putNormal,
-                          putQuiet, readFile')
+import Development.Shake          hiding (copyFile', need, needed, putLoud,
+                                   putNormal, putQuiet, readFile')
+import Development.Shake.FilePath

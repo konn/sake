@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6a23b74be7fcdcf864220e9ffd3d1239fed172a6d415329e2609740ea698ec22
+-- hash: c3ed645b9d10a15f7f2e674e0598047a7bde18a6138251067135233aa82ef591
 
 name:           sake
 version:        0.1.0.0
@@ -48,6 +48,7 @@ library
     , cryptohash-sha256
     , data-default
     , directory
+    , dlist
     , doctemplates
     , filepath
     , fsnotify
@@ -68,6 +69,7 @@ library
     , pandoc-types
     , parsec
     , process
+    , reflection
     , regex-applicative
     , shake
     , shakespeare
@@ -97,12 +99,15 @@ library
       Web.Sake
       Web.Sake.Class
       Web.Sake.Feed
+      Web.Sake.Given
       Web.Sake.Html
       Web.Sake.Identifier
       Web.Sake.Item
       Web.Sake.Metadata
+      Web.Sake.Orphans
       Web.Sake.Template
       Web.Sake.Template.DocTemplates
+      Web.Sake.Template.Hamlet
       Web.Sake.Template.Mustache
   other-modules:
       Web.Sake.Utils
@@ -127,6 +132,7 @@ executable site
     , cryptohash-sha256
     , data-default
     , directory
+    , dlist
     , doctemplates
     , filepath
     , fsnotify
@@ -147,6 +153,7 @@ executable site
     , pandoc-types
     , parsec
     , process
+    , reflection
     , regex-applicative
     , sake
     , shake
@@ -197,6 +204,7 @@ test-suite sake-test
     , cryptohash-sha256
     , data-default
     , directory
+    , dlist
     , doctemplates
     , filepath
     , fsnotify
@@ -217,6 +225,7 @@ test-suite sake-test
     , pandoc-types
     , parsec
     , process
+    , reflection
     , regex-applicative
     , sake
     , shake
