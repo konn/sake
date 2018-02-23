@@ -8,6 +8,7 @@ module Web.Sake.Template ( Context(..)
                          , defaultContext, titleField, listField
                          , objectContext, applyTemplateList, applyJoinTemplateList
                          , dynField
+                         , dynField, field_
                          ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -87,6 +88,8 @@ field :: ToJSON a => String -> (forall m. MonadSake m => Item b -> m a) -> Conte
 field k mk = Context $ \i -> do
   v <- mk i
   return $ HM.singleton (T.pack k) $ toJSON v
+field_ :: ToJSON a1 => String -> (Item a2 -> a1) -> Context a2
+field_ k mk = Context $ return . HM.singleton (T.pack k) . toJSON . mk
 
 constField :: ToJSON a => String -> a -> Context b
 constField k v =
