@@ -88,7 +88,7 @@ readPandoc opts i@Item{..} = do
                                itemBody
         let A.Success metaPanDef = A.fromJSON $ A.toJSON $ HM.filter isMetaValue itemMetadata
             metaPan' = metaPan <> metaPanDef
-            A.Object panMeta = A.toJSON $ fmap fromMetaValue $ unMeta metaPan
+            A.Object panMeta = A.toJSON $ fromMetaValue <$> unMeta metaPan
             metadata' = itemMetadata <> panMeta
         return $ i { itemBody = Pandoc metaPan' body
                    , itemMetadata = metadata'
@@ -109,13 +109,13 @@ runPandoc act = liftIO (runIO act) >>= \case
 
 -- | Write HTML by Pandoc.
 writePandoc :: MonadSake m => WriterOptions -> Item Pandoc -> m (Item Text)
-writePandoc opts i@Item{..} = do
+writePandoc opts i@Item{..} =
   runPandoc $ do
-        src <- writeHtml5String
-                 opts { writerExtensions = writerExtensions opts
-                      }
-                 itemBody
-        return $ i { itemBody = src }
+      src <- writeHtml5String
+               opts { writerExtensions = writerExtensions opts
+                    }
+               itemBody
+      return $ i { itemBody = src }
 
 compilePandoc :: MonadSake m => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
 compilePandoc rOpt wOpt i =
