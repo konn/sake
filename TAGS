@@ -63,7 +63,7 @@ newtype Sake a = Sake { unSake unSake38,39
 runSake runSake41,42
 runSake runSake42,43
 
-./src/Web/Sake/Template.hs,1515
+./src/Web/Sake/Template.hs,1557
 module Web.Sake.Template Web.Sake.Template2,3
 import import16,17
 newtype Context Context30,31
@@ -86,20 +86,22 @@ loadAndApplyTemplate loadAndApplyTemplate74,75
 loadAndApplyTemplate loadAndApplyTemplate81,82
 field field85,86
 field field86,87
-constField constField90,91
+field_ field_88,89
+field_ field_89,90
 constField constField91,92
-objectContext objectContext95,96
+constField constField92,93
 objectContext objectContext96,97
-bodyField bodyField102,103
+objectContext objectContext97,98
 bodyField bodyField103,104
-pathField pathField105,106
+bodyField bodyField104,105
 pathField pathField106,107
-defaultContext defaultContext108,109
+pathField pathField107,108
 defaultContext defaultContext109,110
-titleField titleField112,113
+defaultContext defaultContext110,111
 titleField titleField113,114
-listField listField115,116
+titleField titleField114,115
 listField listField116,117
+listField listField117,118
 applyTemplateList applyTemplateList119,120
 applyTemplateList applyTemplateList120,121
 applyJoinTemplateList applyJoinTemplateList122,123
@@ -221,50 +223,50 @@ readM readM5,6
 ./src/Web/Sake/Orphans.hs,46
 module Web.Sake.Orphans Web.Sake.Orphans0,1
 
-./src/Web/Sake/Item.hs,1114
-module Web.Sake.ItemWeb.Sake.Item2,3
-data Item Item28,29
-data Item a = Item Item28,29
-data Item a = Item { itemBody itemBody28,29
-                   , itemMetadata itemMetadata29,30
-                   , itemIdentifier itemIdentifier30,31
-loadItem loadItem35,36
-loadItem loadItem36,37
-loadBinary loadBinary43,44
-loadBinary loadBinary44,45
-loadYaml loadYaml46,47
-loadYaml loadYaml47,48
-loadJSON loadJSON49,50
-loadJSON loadJSON50,51
-loadUnwrapped loadUnwrapped52,53
-loadUnwrapped loadUnwrapped53,54
-extensionDict extensionDict57,58
-extensionDict extensionDict58,59
-feedReader feedReader64,65
-feedReader feedReader65,66
-isMetaValue isMetaValue68,69
-isMetaValue isMetaValue69,70
-readPandoc readPandoc76,77
-readPandoc readPandoc77,78
-fromMetaValue fromMetaValue96,97
-fromMetaValue fromMetaValue97,98
-runPandoc runPandoc104,105
-runPandoc runPandoc105,106
-writePandoc writePandoc110,111
-writePandoc writePandoc111,112
-compilePandoc compilePandoc119,120
-compilePandoc compilePandoc120,121
-loadMetadata loadMetadata123,124
-loadMetadata loadMetadata124,125
+./src/Web/Sake/Item.hs,1117
+module Web.Sake.ItemWeb.Sake.Item3,4
+data Item Item29,30
+data Item a = Item Item29,30
+data Item a = Item { itemBody itemBody29,30
+                   , itemMetadata itemMetadata30,31
+                   , itemIdentifier itemIdentifier31,32
+loadItem loadItem38,39
+loadItem loadItem39,40
+loadBinary loadBinary46,47
+loadBinary loadBinary47,48
+loadYaml loadYaml49,50
+loadYaml loadYaml50,51
+loadJSON loadJSON52,53
+loadJSON loadJSON53,54
+loadUnwrapped loadUnwrapped55,56
+loadUnwrapped loadUnwrapped56,57
+extensionDict extensionDict60,61
+extensionDict extensionDict61,62
+feedReader feedReader67,68
+feedReader feedReader68,69
+isMetaValue isMetaValue71,72
+isMetaValue isMetaValue72,73
+readPandoc readPandoc79,80
+readPandoc readPandoc80,81
+fromMetaValue fromMetaValue99,100
+fromMetaValue fromMetaValue100,101
+runPandoc runPandoc107,108
+runPandoc runPandoc108,109
+writePandoc writePandoc113,114
+writePandoc writePandoc114,115
+compilePandoc compilePandoc122,123
+compilePandoc compilePandoc123,124
+loadMetadata loadMetadata126,127
+loadMetadata loadMetadata127,128
 
 ./src/Web/Sake/Template/Mustache.hs,296
 module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache4,5
-type Mustache Mustache23,24
-instance instance25,26
-applyAsMustache applyAsMustache31,32
-applyAsMustache applyAsMustache32,33
-loadAndApplyMustache loadAndApplyMustache34,35
-loadAndApplyMustache loadAndApplyMustache35,36
+type Mustache Mustache24,25
+instance instance26,27
+applyAsMustache applyAsMustache35,36
+applyAsMustache applyAsMustache36,37
+loadAndApplyMustache loadAndApplyMustache38,39
+loadAndApplyMustache loadAndApplyMustache39,40
 
 ./src/Web/Sake/Template/Hamlet.hs,402
 module Web.Sake.Template.HamletWeb.Sake.Template.Hamlet5,6
@@ -299,18 +301,6 @@ type Metadata Metadata13,14
 splitMetadata splitMetadata15,16
 splitMetadata splitMetadata16,17
 
-./src/Web/Sake/Compiler.hs,363
-module Web.Sake.Compiler Web.Sake.Compiler2,3
-data PGEnv PGEnv10,11
-data PGEnv = PGEnv PGEnv10,11
-data PGEnv = PGEnv { targetIdentifier targetIdentifier10,11
-newtype Compiler Compiler11,12
-newtype Compiler a = PG PG11,12
-newtype Compiler a = PG { runPG_ runPG_11,12
-instance instance15,16
-replaceDir replaceDir18,19
-replaceDir replaceDir19,20
-
 ./src/Web/Sake/Feed.hs,1028
 module Web.Sake.FeedWeb.Sake.Feed1,2
 rssTemplate rssTemplate20,21
@@ -339,7 +329,7 @@ renderAtom renderAtom66,67
 renderFeed renderFeed68,69
 renderFeed renderFeed70,71
 
-./src/Web/Sake/Html.hs,461
+./src/Web/Sake/Html.hs,569
 module Web.Sake.HtmlWeb.Sake.Html3,4
 mapTags mapTags24,25
 mapTags mapTags27,28
@@ -353,8 +343,12 @@ shiftHeadersBy shiftHeadersBy93,94
 shiftHeadersBy shiftHeadersBy94,95
 demoteHeaders demoteHeaders111,112
 demoteHeaders demoteHeaders112,113
-getUrls getUrls120,121
-getUrls getUrls121,122
+linkAtts linkAtts120,121
+linkAtts linkAtts121,122
+getUrls getUrls123,124
+getUrls getUrls124,125
+withUrls withUrls139,140
+withUrls withUrls140,141
 
 ./src/Web/Sake/Route.hs,350
 module Web.Sake.RouteWeb.Sake.Route2,3

@@ -1,5 +1,6 @@
-{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric, LambdaCase     #-}
-{-# LANGUAGE NoMonomorphismRestriction, RecordWildCards, TypeApplications #-}
+{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric             #-}
+{-# LANGUAGE DeriveTraversable, LambdaCase, NoMonomorphismRestriction #-}
+{-# LANGUAGE RecordWildCards, TypeApplications                        #-}
 module Web.Sake.Item
        ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
        , readPandoc, writePandoc, compilePandoc, loadMetadata
@@ -30,7 +31,9 @@ data Item a = Item { itemBody       :: a
                    , itemMetadata   :: Metadata
                    , itemIdentifier :: Identifier
                    }
-            deriving (Read, Show, Eq, Functor, Generic, Hashable)
+            deriving (Read, Show, Eq, Functor,
+                      Generic, Hashable, Traversable, Foldable
+                     )
 
 -- | Loads item, decomposing metadata if necessary.
 loadItem :: (Readable a, MonadSake m) => FilePath -> m (Item a)
