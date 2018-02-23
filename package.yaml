@@ -11,6 +11,12 @@ extra-source-files:
 - ChangeLog.md
 - data/*.mustache
 
+flags:
+  example:
+    manual:  false
+    default: false
+    description: Whether build example executable or not
+
 # Metadata used when publishing your package
 synopsis:            A simple and extensible static site generator built on top of Shake.
 category:            Web
@@ -100,6 +106,12 @@ library:
 
 executables:
   site:
+    when:
+    - condition: flag(example)
+      then:
+        buildable: true
+      else:
+        buildable: false
     main:                Main.hs
     source-dirs:         app
     ghc-options:
