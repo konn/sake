@@ -7,7 +7,6 @@ module Web.Sake.Template ( Context(..)
                          , metadataField, field, constField, bodyField
                          , defaultContext, titleField, listField
                          , objectContext, applyTemplateList, applyJoinTemplateList
-                         , dynField
                          , dynField, field_
                          ) where
 import Web.Sake.Class
@@ -51,7 +50,7 @@ class Templatable tmpl where
 
 applyAsTemplate' :: forall tmpl proxy m. (Templatable tmpl, MonadSake m)
                  => proxy tmpl -> Context Text -> Item Text -> m (Item Text)
-applyAsTemplate' _ ctx i@Item{..} = do
+applyAsTemplate' _ ctx i@Item{..} =
   compileTemplate @tmpl itemIdentifier itemBody >>= \case
     Left err   -> fail err
     Right tmpl -> applyTemplate tmpl ctx i
@@ -85,9 +84,8 @@ loadAndApplyTemplate _ identifier context item = do
   applyTemplate tpl context item
 
 field :: ToJSON a => String -> (forall m. MonadSake m => Item b -> m a) -> Context b
-field k mk = Context $ \i -> do
-  v <- mk i
-  return $ HM.singleton (T.pack k) $ toJSON v
+field k mk = Context $ fmap (HM.singleton (T.pack k) . toJSON) . mk
+
 field_ :: ToJSON a1 => String -> (Item a2 -> a1) -> Context a2
 field_ k mk = Context $ return . HM.singleton (T.pack k) . toJSON . mk
 
@@ -97,7 +95,7 @@ constField k v =
   HM.singleton (T.pack k) $ toJSON v
 
 objectContext :: ToJSON a => a -> Context b
-objectContext v = Context $ \_ -> do
+objectContext v = Context $ \_ ->
   case toJSON v of
     Object dic -> return dic
     _          -> error $ "Should be object, but got: " ++ LT.unpack (LT.decodeUtf8 (encode v))
@@ -117,8 +115,7 @@ titleField :: String -> Context a
 titleField key = field key $ return . takeBaseName . runIdentifier . itemIdentifier
 
 listField :: String -> Context a -> [Item a] -> Context b
-listField key chCtx is = field key $ \ _ -> do
-  mapM (runContext chCtx) is
+listField key chCtx is = field key $ \ _ -> mapM (runContext chCtx) is
 
 applyTemplateList :: (Templatable tmpl, MonadSake m) => tmpl -> Context a -> [Item a] -> m Text
 applyTemplateList = applyJoinTemplateList ""
