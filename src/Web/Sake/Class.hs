@@ -103,6 +103,8 @@ class (MonadIO m) => MonadSake m where
 class MonadSake m => MonadAction m where
   liftAction :: Sh.Action a -> m a
 
+instance MonadAction Sh.Action where
+  liftAction = id
 
 writeStringFile :: (MonadSake m) => FilePath -> String -> m ()
 writeStringFile = writeToFile
