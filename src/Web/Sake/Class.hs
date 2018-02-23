@@ -1,7 +1,7 @@
-{-# LANGUAGE ConstraintKinds, DefaultSignatures, FlexibleContexts          #-}
-{-# LANGUAGE FlexibleInstances, PartialTypeSignatures, ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications, TypeFamilies, TypeSynonymInstances          #-}
-{-# LANGUAGE UndecidableInstances                                          #-}
+{-# LANGUAGE ConstraintKinds, DefaultSignatures, FlexibleContexts     #-}
+{-# LANGUAGE FlexibleInstances, NoMonomorphismRestriction             #-}
+{-# LANGUAGE PartialTypeSignatures, ScopedTypeVariables, TypeFamilies #-}
+{-# LANGUAGE TypeSynonymInstances, UndecidableInstances               #-}
 module Web.Sake.Class
        ( MonadSake(..), MonadAction(..)
        , Writable(..), Readable(..)
@@ -14,7 +14,9 @@ module Web.Sake.Class
        , -- * Lifted functions WITHOUT dependency tracking
          readFileNoDep, readTextFileNoDep, readLazyTextFileNoDep
        , readFromBinaryFileNoDep, readBinaryFileNoDep, readFromFileNoDep
-       , copyFileNoDep
+       , copyFileNoDep, defaultStoreWriteTo_, defaultYamlWriteTo_
+       , defaultJSONWriteTo_
+       , defaultStoreReadFrom_, defaultJSONReadFrom_, defaultYamlReadFrom_
        , -- * Useful wrrapers
          Binary(..), Shown(..), Yaml(..), JSON(..)
        , CopyFile(..), TempFile(..)
@@ -41,9 +43,9 @@ import qualified Data.Text.Lazy.IO             as LT
 import qualified Data.Yaml                     as Y
 import qualified Development.Shake             as Sh
 import           GHC.Generics                  (Generic)
-import           System.Directory              (renameFile)
 import           System.Directory              (copyFile,
-                                                createDirectoryIfMissing)
+                                                createDirectoryIfMissing,
+                                                renameFile)
 import           System.FilePath               (takeDirectory)
 import           Text.Blaze.Html               (Html)
 import qualified Text.Blaze.Html.Renderer.Text as Html
@@ -233,6 +235,15 @@ instance Store a => Writable (Binary a) where
 newtype Shown a = Shown { runShown :: a }
                 deriving (Read,Show,  Eq, Ord, Generic)
 
+defaultStoreWriteTo_ :: (MonadSake m, Store a) => FilePath -> a -> m ()
+defaultStoreWriteTo_ fp = writeTo_ fp . Binary
+
+defaultYamlWriteTo_ :: (MonadSake m, ToJSON a) => FilePath -> a -> m ()
+defaultYamlWriteTo_ fp = writeTo_ fp . Yaml
+
+defaultJSONWriteTo_ :: (MonadSake m, ToJSON a) => FilePath -> a -> m ()
+defaultJSONWriteTo_ fp = writeTo_ fp . JSON
+
 instance Show a => Writable (Shown a) where
   writeTo_ fp = writeTo_ fp . show . runShown
   {-# INLINE writeTo_ #-}
@@ -297,6 +308,15 @@ instance FromJSON a => Readable (Yaml a) where
 instance FromJSON a => Readable (JSON a) where
   readFrom_ = either (throwIO . userError) (return . JSON) . Ae.eitherDecode <=< readFrom_
   {-# SPECIALISE INLINE readFrom_ :: FromJSON a => FilePath -> IO (JSON a) #-}
+
+defaultStoreReadFrom_ :: Store b => FilePath -> IO b
+defaultStoreReadFrom_ = fmap runBinary . readFrom_
+
+defaultYamlReadFrom_ :: FromJSON b => FilePath -> IO b
+defaultYamlReadFrom_ = fmap runYaml . readFrom_
+
+defaultJSONReadFrom_ :: FromJSON b => FilePath -> IO b
+defaultJSONReadFrom_ = fmap runJSON . readFrom_
 
 newtype CopyFile = CopyFile FilePath
               deriving (Read, Show, Eq, Ord)
