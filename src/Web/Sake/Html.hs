@@ -5,7 +5,7 @@ module Web.Sake.Html
        (mapTags, concatMapTags
        , withTags, mapTagTree
        , shiftHeadersBy, demoteHeaders
-       , getUrls
+       , getUrls, withUrls
        , -- * Re-exports
          escapeHTML
        ) where
@@ -118,13 +118,16 @@ demoteHeaders = shiftHeadersBy 1
 {-# SPECIALISE demoteHeaders :: BS.ByteString -> BS.ByteString #-}
 {-# SPECIALISE demoteHeaders :: LBS.ByteString -> LBS.ByteString #-}
 
+linkAtts :: (StringLike str) => [str]
+linkAtts = ["href", "src", "data", "poster"]
+
 getUrls :: (StringLike str) => str -> [str]
 getUrls = concatMap qry . parseTags
   where
     qry (TagOpen _ atts) =
            [ url
            | (key, url) <- atts
-           , key `elem` ["href", "src", "data", "poster"]
+           , key `elem` linkAtts
            ]
     qry _                = []
 {-# INLINE getUrls #-}
@@ -133,3 +136,19 @@ getUrls = concatMap qry . parseTags
 {-# SPECIALISE getUrls :: String -> [String] #-}
 {-# SPECIALISE getUrls :: BS.ByteString -> [BS.ByteString] #-}
 {-# SPECIALISE getUrls :: LBS.ByteString -> [LBS.ByteString] #-}
+
+withUrls :: (StringLike str) => (str -> str) -> str -> str
+withUrls f = withTags $ \case
+  TagOpen a atts -> TagOpen a $ map change atts
+  i -> i
+  where
+    change (k, v)
+      | k `elem` linkAtts = (k, f v)
+      | otherwise = (k, v)
+
+{-# INLINE withUrls #-}
+{-# SPECIALISE withUrls :: (T.Text -> T.Text) -> T.Text -> T.Text #-}
+{-# SPECIALISE withUrls :: (LT.Text -> LT.Text) -> LT.Text -> LT.Text #-}
+{-# SPECIALISE withUrls :: (String -> String) -> String -> String #-}
+{-# SPECIALISE withUrls :: (BS.ByteString -> BS.ByteString) -> BS.ByteString -> BS.ByteString #-}
+{-# SPECIALISE withUrls :: (LBS.ByteString -> LBS.ByteString) -> LBS.ByteString -> LBS.ByteString #-}
