@@ -1,8 +1,9 @@
-{-# LANGUAGE ConstraintKinds, FlexibleContexts, FlexibleInstances         #-}
-{-# LANGUAGE PartialTypeSignatures, ScopedTypeVariables, TypeApplications #-}
-{-# LANGUAGE TypeFamilies, TypeSynonymInstances, UndecidableInstances     #-}
+{-# LANGUAGE ConstraintKinds, DefaultSignatures, FlexibleContexts          #-}
+{-# LANGUAGE FlexibleInstances, PartialTypeSignatures, ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications, TypeFamilies, TypeSynonymInstances          #-}
+{-# LANGUAGE UndecidableInstances                                          #-}
 module Web.Sake.Class
-       ( MonadSake(..)
+       ( MonadSake(..), MonadAction(..)
        , Writable(..), Readable(..)
        , needing
        , -- * Specialised functions
@@ -54,6 +55,12 @@ class (MonadIO m) => MonadSake m where
   need   :: [FilePath] -> m ()
   needed :: [FilePath] -> m ()
 
+  default need :: MonadAction m => [FilePath] -> m ()
+  need = liftAction . need
+
+  default needed :: MonadAction m => [FilePath] -> m ()
+  needed = liftAction . needed
+
   createParentDirectoryFor :: FilePath -> m ()
   createParentDirectoryFor fp =
     liftIO $
@@ -81,6 +88,18 @@ class (MonadIO m) => MonadSake m where
   putNormal :: String -> m ()
   putLoud   :: String -> m ()
   putQuiet  :: String -> m ()
+
+  default putNormal :: MonadAction m => String -> m ()
+  putNormal = liftAction . putNormal
+
+  default putLoud :: MonadAction m => String -> m ()
+  putLoud = liftAction . putLoud
+
+  default putQuiet :: MonadAction m => String -> m ()
+  putQuiet = liftAction . putQuiet
+
+class MonadSake m => MonadAction m where
+  liftAction :: Sh.Action a -> m a
 
 
 writeStringFile :: (MonadSake m) => FilePath -> String -> m ()

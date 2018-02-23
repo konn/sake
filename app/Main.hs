@@ -14,8 +14,6 @@ import           Data.Store
 import           Data.Text                      (Text)
 import qualified Data.Text                      as T
 import           Data.Text.ICU.Normalize
-import qualified Data.Text.IO                   as T
-import           Development.Shake.FilePath
 import           Network.Wai.Application.Static
 import qualified Network.Wai.Handler.Warp       as Warp
 import           Text.Megaparsec                (Pos, mkPos, unPos)
@@ -72,9 +70,9 @@ rules = do
 
   "site" ~> do
     cmd_ "mkdir" "-p" siteDest
-    mds   <- getDirectoryFiles siteSrc ["//*.md"]
-    texs  <- getDirectoryFiles siteSrc ["//*.tex"]
-    htmls <- getDirectoryFiles siteSrc ["//*.html"]
+    mds    <- getDirectoryFiles siteSrc ["//*.md"]
+    texs   <- getDirectoryFiles siteSrc ["//*.tex"]
+    htmls  <- getDirectoryFiles siteSrc ["//*.html"]
     copies <- getDirectoryFiles siteSrc ["css//*", "js//*", "img//*"]
     let genHtmls = map (-<.> "html") (mds ++ texs) ++ htmls
         genPDFs  = map (-<.> "pdf") texs

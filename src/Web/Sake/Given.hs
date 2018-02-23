@@ -7,6 +7,7 @@ module Web.Sake.Given
        ) where
 import           Web.Sake      hiding (loadBinary, loadItem, loadJSON, loadYaml,
                                 writeFile')
+import           Web.Sake.Conf
 import qualified Web.Sake.Item as Item
 
 import Data.Aeson      (FromJSON)
@@ -15,31 +16,6 @@ import Data.Reflection (Given (..), give)
 import Data.Store      (Store)
 import GHC.Generics    (Generic)
 import System.Exit     (ExitCode)
-
-data SakeConf = SakeConf { destinationDir :: FilePath
-                         , cacheDir       :: FilePath
-                         , sourceDir      :: FilePath
-                         , ignoreFile     :: FilePath -> Bool
-                         , deployMethod   :: DeployMethod
-                         , previewHost    :: String
-                         , previewPort    :: Int
-                         }
-              deriving (Generic)
-
-instance Default SakeConf where
-  def = SakeConf { destinationDir = "_site"
-                 , cacheDir = "_cache"
-                 , sourceDir = "src-site"
-                 , ignoreFile = const False
-                 , deployMethod = DeployCommand "echo \"No deployment method provided!\""
-                 , previewHost = "localhost"
-                 , previewPort = 8000
-                 }
-
-data DeployMethod = DeployCommand { deployCommand :: String }
-                  | DeployAction { deployAction :: SakeConf -> IO ExitCode }
-                  deriving (Generic)
-
 
 withSakeConf :: SakeConf -> (Given SakeConf => a) -> a
 withSakeConf cnf = give cnf

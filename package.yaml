@@ -50,6 +50,7 @@ dependencies:
 - monad-loops
 - mtl
 - network-uri
+- operational
 - pandoc
 - pandoc-citeproc
 - pandoc-crossref

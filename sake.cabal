@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c3ed645b9d10a15f7f2e674e0598047a7bde18a6138251067135233aa82ef591
+-- hash: 447208494ad0fb5245c19382c3ff491f18eb2f5048134d60354cbece641c0880
 
 name:           sake
 version:        0.1.0.0
@@ -63,6 +63,7 @@ library
     , monad-loops
     , mtl
     , network-uri
+    , operational
     , pandoc
     , pandoc-citeproc
     , pandoc-crossref
@@ -98,13 +99,16 @@ library
   exposed-modules:
       Web.Sake
       Web.Sake.Class
+      Web.Sake.Conf
       Web.Sake.Feed
+      Web.Sake.Forward
       Web.Sake.Given
       Web.Sake.Html
       Web.Sake.Identifier
       Web.Sake.Item
       Web.Sake.Metadata
       Web.Sake.Orphans
+      Web.Sake.Route
       Web.Sake.Template
       Web.Sake.Template.DocTemplates
       Web.Sake.Template.Hamlet
@@ -147,6 +151,7 @@ executable site
     , monad-loops
     , mtl
     , network-uri
+    , operational
     , pandoc
     , pandoc-citeproc
     , pandoc-crossref
@@ -219,6 +224,7 @@ test-suite sake-test
     , monad-loops
     , mtl
     , network-uri
+    , operational
     , pandoc
     , pandoc-citeproc
     , pandoc-crossref
