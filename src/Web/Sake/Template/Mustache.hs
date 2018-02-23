@@ -17,7 +17,8 @@ import           Data.String     (IsString (fromString))
 import           Data.Text       (Text)
 import qualified Data.Text.Lazy  as LT
 import           Text.Megaparsec (parseErrorPretty')
-import           Text.Mustache   (Template, compileMustacheText, renderMustache)
+import           Text.Mustache   (Template, compileMustacheFile,
+                                  compileMustacheText, renderMustache)
 
 -- | Synonym for mustache's @'Template'@, to avoid collision
 --   between other engine's @'Template'@.
@@ -28,6 +29,9 @@ instance Templatable Mustache where
     return $ left (parseErrorPretty' src) $ compileMustacheText (fromString $ runIdentifier ident) src
   applyToMetadata tmpl meta =
     return $ Right $ LT.toStrict $ renderMustache tmpl $ toJSON meta
+
+instance Readable Mustache where
+  readFrom_ = compileMustacheFile
 
 applyAsMustache :: MonadSake m => Context Text -> Item Text -> m (Item Text)
 applyAsMustache = applyAsTemplate' (Nothing :: Maybe Template)
