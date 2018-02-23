@@ -2,7 +2,7 @@
 {-# LANGUAGE NoMonomorphismRestriction, RecordWildCards, TypeApplications #-}
 module Web.Sake.Item
        ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
-       , readPandoc, writePandoc, compilePandoc,
+       , readPandoc, writePandoc, compilePandoc, loadMetadata
        ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -120,3 +120,6 @@ writePandoc opts i@Item{..} = do
 compilePandoc :: MonadSake m => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
 compilePandoc rOpt wOpt i =
   readPandoc rOpt i >>= writePandoc wOpt
+
+loadMetadata :: MonadSake m => FilePath -> m Metadata
+loadMetadata path = itemMetadata <$> loadItem @MetadataOnly path

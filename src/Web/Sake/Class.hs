@@ -19,7 +19,7 @@ module Web.Sake.Class
        , defaultStoreReadFrom_, defaultJSONReadFrom_, defaultYamlReadFrom_
        , -- * Useful wrrapers
          Binary(..), Shown(..), Yaml(..), JSON(..)
-       , CopyFile(..), TempFile(..)
+       , CopyFile(..), TempFile(..), MetadataOnly(..)
        , -- * Re-export(s)
          MonadIO(..)
        ) where
@@ -331,3 +331,14 @@ instance Writable TempFile where
   writeTo_ fp (TempFile from) = liftIO $ do
     createDirectoryIfMissing True (takeDirectory fp)
     renameFile from fp
+
+newtype MetadataOnly = MetadataOnly Metadata
+                deriving (Read, Show, Eq, Generic)
+
+instance Readable MetadataOnly where
+  readFrom_ fp =
+    either error (MetadataOnly . fst) . splitMetadata <$> readFrom_ fp
+
+  decompMetadata i@(MetadataOnly m) = Right (m, i)
+
+
