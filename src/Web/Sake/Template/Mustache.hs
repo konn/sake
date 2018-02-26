@@ -1,5 +1,4 @@
-{-# LANGUAGE NoMonomorphismRestriction, TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances                        #-}
+{-# LANGUAGE NoMonomorphismRestriction, TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 -- | Provides @'Templatable'@ instance and utility functions for mustache @'Template'@s.
 module Web.Sake.Template.Mustache
@@ -37,4 +36,4 @@ applyAsMustache :: MonadSake m => Context Text -> Item Text -> m (Item Text)
 applyAsMustache = applyAsTemplate' (Nothing :: Maybe Template)
 
 loadAndApplyMustache :: MonadSake m => FilePath -> Context a -> Item a -> m (Item Text)
-loadAndApplyMustache = loadAndApplyTemplate @Mustache Nothing
+loadAndApplyMustache = loadAndApplyTemplate (Nothing :: Maybe Mustache)

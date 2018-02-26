@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveGeneric, GeneralizedNewtypeDeriving, TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances                                        #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 -- | Provides @'Templatable'@ instance and utility functions for doctemplates' @'Template'@,
 --   which is mainly used by Pandoc.
@@ -28,4 +27,4 @@ applyAsDocTemplates :: MonadSake m => Context Text -> Item Text -> m (Item Text)
 applyAsDocTemplates = applyAsTemplate' (Nothing :: Maybe Template)
 
 loadAndApplyDocTemplates :: MonadSake m => FilePath -> Context a -> Item a -> m (Item Text)
-loadAndApplyDocTemplates = loadAndApplyTemplate @DocTemplates Nothing
+loadAndApplyDocTemplates = loadAndApplyTemplate (Nothing :: Maybe DocTemplates)

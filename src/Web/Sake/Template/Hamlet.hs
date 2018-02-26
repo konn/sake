@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveGeneric, GeneralizedNewtypeDeriving, TypeApplications #-}
-{-# LANGUAGE TypeSynonymInstances                                        #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 -- | Provides @'Templatable'@ instance and utility functions for @'HamletTemplate'@,
 --   which is mainly used by Pandoc.
@@ -48,12 +47,10 @@ valueToHamlet (String str) = Right $ toHamletData str
 valueToHamlet Null = Right $ toHamletData ("" :: T.Text)
 valueToHamlet (Bool b) = Right $ toHamletData b
 valueToHamlet v =
-  Left $ concat [ "Cannot render as Hamlet value: "
-                , LT.unpack $ LT.decodeUtf8 $ A.encode v
-                ]
+  Left $ "Cannot render as Hamlet value: " ++ LT.unpack (LT.decodeUtf8 $ A.encode v)
 
 applyAsHamlet :: MonadSake m => Context Text -> Item Text -> m (Item Text)
 applyAsHamlet = applyAsTemplate' (Nothing :: Maybe HamletTemplate)
 
 loadAndApplyHamlet :: MonadSake m => FilePath -> Context a -> Item a -> m (Item Text)
-loadAndApplyHamlet = loadAndApplyTemplate @HamletTemplate Nothing
+loadAndApplyHamlet = loadAndApplyTemplate (Nothing :: Maybe HamletTemplate)

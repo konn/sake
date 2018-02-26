@@ -260,34 +260,34 @@ loadMetadata loadMetadata126,127
 loadMetadata loadMetadata127,128
 
 ./src/Web/Sake/Template/Mustache.hs,296
-module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache4,5
-type Mustache Mustache24,25
-instance instance26,27
+module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache3,4
+type Mustache Mustache23,24
+instance instance25,26
+applyAsMustache applyAsMustache34,35
 applyAsMustache applyAsMustache35,36
-applyAsMustache applyAsMustache36,37
+loadAndApplyMustache loadAndApplyMustache37,38
 loadAndApplyMustache loadAndApplyMustache38,39
-loadAndApplyMustache loadAndApplyMustache39,40
 
 ./src/Web/Sake/Template/Hamlet.hs,402
-module Web.Sake.Template.HamletWeb.Sake.Template.Hamlet5,6
-instance instance32,33
+module Web.Sake.Template.HamletWeb.Sake.Template.Hamlet4,5
+instance instance31,32
+showSomeException showSomeException39,40
 showSomeException showSomeException40,41
-showSomeException showSomeException41,42
+valueToHamlet valueToHamlet42,43
 valueToHamlet valueToHamlet43,44
-valueToHamlet valueToHamlet44,45
-applyAsHamlet applyAsHamlet54,55
-applyAsHamlet applyAsHamlet55,56
-loadAndApplyHamlet loadAndApplyHamlet57,58
-loadAndApplyHamlet loadAndApplyHamlet58,59
+applyAsHamlet applyAsHamlet51,52
+applyAsHamlet applyAsHamlet52,53
+loadAndApplyHamlet loadAndApplyHamlet54,55
+loadAndApplyHamlet loadAndApplyHamlet55,56
 
 ./src/Web/Sake/Template/DocTemplates.hs,344
-module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates5,6
-type DocTemplates DocTemplates18,19
-instance instance20,21
+module Web.Sake.Template.DocTemplatesWeb.Sake.Template.DocTemplates4,5
+type DocTemplates DocTemplates17,18
+instance instance19,20
+applyAsDocTemplates applyAsDocTemplates25,26
 applyAsDocTemplates applyAsDocTemplates26,27
-applyAsDocTemplates applyAsDocTemplates27,28
+loadAndApplyDocTemplates loadAndApplyDocTemplates28,29
 loadAndApplyDocTemplates loadAndApplyDocTemplates29,30
-loadAndApplyDocTemplates loadAndApplyDocTemplates30,31
 
 ./src/Web/Sake/Identifier.hs,202
 module Web.Sake.Identifier Web.Sake.Identifier1,2

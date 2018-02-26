@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric             #-}
 {-# LANGUAGE DeriveTraversable, LambdaCase, NoMonomorphismRestriction #-}
-{-# LANGUAGE RecordWildCards, TypeApplications                        #-}
+{-# LANGUAGE RecordWildCards, ScopedTypeVariables                     #-}
 module Web.Sake.Item
        ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
        , readPandoc, writePandoc, compilePandoc, loadMetadata
@@ -71,9 +71,9 @@ feedReader (ByteStringReader r) opt = r opt . LT.encodeUtf8 . LT.fromStrict
 
 isMetaValue :: A.Value -> Bool
 isMetaValue val =
-  case A.fromJSON  @MetaValue val of
-    A.Success _ -> True
-    _           -> False
+  case A.fromJSON val of
+    A.Success (_ :: MetaValue) -> True
+    _                          -> False
 
 -- | Compile the given @'Item'@ into @'Pandoc'@, taking care of metadatas.
 --   Format is deteremined by extension.
@@ -125,4 +125,4 @@ compilePandoc rOpt wOpt i =
   readPandoc rOpt i >>= writePandoc wOpt
 
 loadMetadata :: MonadSake m => FilePath -> m Metadata
-loadMetadata path = itemMetadata <$> loadItem @MetadataOnly path
+loadMetadata path = (itemMetadata :: Item MetadataOnly -> Metadata) <$> loadItem path

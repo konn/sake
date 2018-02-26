@@ -1,5 +1,5 @@
 {-# LANGUAGE LambdaCase, RankNTypes, RecordWildCards, ScopedTypeVariables #-}
-{-# LANGUAGE TemplateHaskell, TypeApplications, TypeFamilies              #-}
+{-# LANGUAGE TemplateHaskell, TypeFamilies                                #-}
 module Web.Sake.Template ( Context(..)
                          , Templatable(..)
                          , applyAsTemplate', applyTemplate
@@ -51,9 +51,9 @@ class Templatable tmpl where
 applyAsTemplate' :: forall tmpl proxy m. (Templatable tmpl, MonadSake m)
                  => proxy tmpl -> Context Text -> Item Text -> m (Item Text)
 applyAsTemplate' _ ctx i@Item{..} =
-  compileTemplate @tmpl itemIdentifier itemBody >>= \case
+  compileTemplate itemIdentifier itemBody >>= \case
     Left err   -> fail err
-    Right tmpl -> applyTemplate tmpl ctx i
+    Right tmpl -> applyTemplate (tmpl :: tmpl) ctx i
 
 applyTemplate :: (Templatable tmpl, MonadSake m)
               => tmpl -> Context a -> Item a
@@ -80,8 +80,8 @@ loadAndApplyTemplate :: forall tmpl proxy a m.
                      -> Item a         -- ^ Page
                      -> m (Item Text)  -- ^ Resulting item
 loadAndApplyTemplate _ identifier context item = do
-  tpl <- itemBody <$> loadTemplate @tmpl identifier
-  applyTemplate tpl context item
+  tpl <- itemBody <$> loadTemplate identifier
+  applyTemplate (tpl :: tmpl) context item
 
 field :: ToJSON a => String -> (forall m. MonadSake m => Item b -> m a) -> Context b
 field k mk = Context $ fmap (HM.singleton (T.pack k) . toJSON) . mk
