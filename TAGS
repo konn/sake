@@ -202,18 +202,18 @@ class Readable Readable266,267
   readFrom_ readFrom_267,268
   decompMetadata decompMetadata268,269
   decompMetadata decompMetadata269,270
-defaultStoreReadFrom_ defaultStoreReadFrom_313,314
-defaultStoreReadFrom_ defaultStoreReadFrom_314,315
-defaultYamlReadFrom_ defaultYamlReadFrom_316,317
-defaultYamlReadFrom_ defaultYamlReadFrom_317,318
-defaultJSONReadFrom_ defaultJSONReadFrom_319,320
-defaultJSONReadFrom_ defaultJSONReadFrom_320,321
-newtype CopyFile CopyFile322,323
-newtype CopyFile = CopyFile CopyFile322,323
-newtype TempFile TempFile328,329
-newtype TempFile = TempFile TempFile328,329
-newtype MetadataOnly MetadataOnly336,337
-newtype MetadataOnly = MetadataOnly MetadataOnly336,337
+defaultStoreReadFrom_ defaultStoreReadFrom_309,310
+defaultStoreReadFrom_ defaultStoreReadFrom_310,311
+defaultYamlReadFrom_ defaultYamlReadFrom_312,313
+defaultYamlReadFrom_ defaultYamlReadFrom_313,314
+defaultJSONReadFrom_ defaultJSONReadFrom_315,316
+defaultJSONReadFrom_ defaultJSONReadFrom_316,317
+newtype CopyFile CopyFile318,319
+newtype CopyFile = CopyFile CopyFile318,319
+newtype TempFile TempFile324,325
+newtype TempFile = TempFile TempFile324,325
+newtype MetadataOnly MetadataOnly332,333
+newtype MetadataOnly = MetadataOnly MetadataOnly332,333
 
 ./src/Web/Sake/Utils.hs,76
 module Web.Sake.Utils Web.Sake.Utils1,2
