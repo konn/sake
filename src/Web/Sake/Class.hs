@@ -85,7 +85,7 @@ class (MonadIO m) => MonadSake m where
 
   readFromFile' :: Readable a => FilePath -> m a
   readFromFile' = needing (liftIO . readFrom_)
-  {-# INLINE readFromFile' #-}
+
 
   putNormal :: String -> m ()
   putLoud   :: String -> m ()
@@ -108,39 +108,39 @@ instance MonadAction Sh.Action where
 
 writeStringFile :: (MonadSake m) => FilePath -> String -> m ()
 writeStringFile = writeToFile
-{-# INLINE writeStringFile #-}
+
 
 writeTextFile :: (MonadSake m) => FilePath -> T.Text -> m ()
 writeTextFile = writeToFile
-{-# INLINE writeTextFile #-}
+
 
 writeLazyTextFile :: (MonadSake m) => FilePath -> LT.Text -> m ()
 writeLazyTextFile = writeToFile
-{-# INLINE writeLazyTextFile #-}
+
 
 readStringFile' :: (MonadSake m) => FilePath -> m String
 readStringFile' = readFromFile'
-{-# INLINE readStringFile' #-}
+
 
 readTextFile' :: (MonadSake m) => FilePath -> m T.Text
 readTextFile' = readFromFile'
-{-# INLINE readTextFile' #-}
+
 
 readLazyTextFile' :: (MonadSake m) => FilePath -> m LT.Text
 readLazyTextFile' = readFromFile'
-{-# INLINE readLazyTextFile' #-}
+
 
 readFromBinaryFile' :: (MonadSake m, Store a) => FilePath -> m a
 readFromBinaryFile' = fmap runBinary . readFromFile'
-{-# INLINE readFromBinaryFile' #-}
+
 
 readFromYamlFile' :: (MonadSake m, FromJSON a) => FilePath -> m a
 readFromYamlFile' = fmap runYaml . readFromFile'
-{-# INLINE readFromYamlFile' #-}
+
 
 readFromJSONFile' :: (MonadSake m, FromJSON a) => FilePath -> m a
 readFromJSONFile' = fmap runJSON . readFromFile'
-{-# INLINE readFromJSONFile' #-}
+
 
 readFileNoDep :: MonadSake m => FilePath -> m String
 readFileNoDep = liftIO . readFrom_
@@ -153,23 +153,23 @@ readLazyTextFileNoDep = liftIO . readFrom_
 
 readFromBinaryFileNoDep :: (MonadSake m, Store a) => FilePath -> m a
 readFromBinaryFileNoDep = liftIO . fmap runBinary . readFrom_
-{-# INLINE readFromBinaryFileNoDep #-}
+
 
 readFromFileNoDep :: (MonadSake m, Readable a) => FilePath -> m a
 readFromFileNoDep = liftIO . readFrom_
-{-# INLINE readFromFileNoDep #-}
+
 
 writeBinaryFile :: (Store a, MonadSake m) => FilePath -> a -> m ()
 writeBinaryFile fp = writeToFile fp . Binary
-{-# INLINE writeBinaryFile #-}
+
 
 writeYamlFile :: (MonadSake m, ToJSON a) => FilePath -> a -> m ()
 writeYamlFile fp = writeToFile fp . Yaml
-{-# INLINE writeYamlFile #-}
+
 
 writeJSONFile :: (MonadSake m, ToJSON a) => FilePath -> a -> m ()
 writeJSONFile fp = writeToFile fp . JSON
-{-# INLINE writeJSONFile #-}
+
 
 copyFileNoDep :: MonadSake m => FilePath -> FilePath -> m ()
 copyFileNoDep from to = liftIO $ do
@@ -206,33 +206,33 @@ class Writable a where
 
 instance Writable BS.ByteString where
   writeTo_ fp = liftIO .  BS.writeFile fp
-  {-# INLINE writeTo_ #-}
+
 
 instance Writable LBS.ByteString where
   writeTo_ fp = liftIO . LBS.writeFile fp
-  {-# INLINE writeTo_ #-}
+
 
 instance Writable T.Text where
   writeTo_ fp = liftIO . T.writeFile fp
-  {-# INLINE writeTo_ #-}
+
 
 instance Writable LT.Text where
   writeTo_ fp = liftIO . LT.writeFile fp
 
 instance Writable String where
   writeTo_ fp = liftIO . writeFile fp
-  {-# INLINE writeTo_ #-}
+
 
 instance Writable Html where
   writeTo_ fp = liftIO . writeTo_ fp . Html.renderHtml
-  {-# INLINE writeTo_ #-}
+
 
 newtype Binary a = Binary { runBinary :: a }
                  deriving (Read, Show, Eq, Ord, Generic)
 
 instance Store a => Writable (Binary a) where
   writeTo_ fp = liftIO . writeTo_ fp . Store.encode . runBinary
-  {-# INLINE writeTo_ #-}
+
 
 newtype Shown a = Shown { runShown :: a }
                 deriving (Read,Show,  Eq, Ord, Generic)
@@ -248,21 +248,21 @@ defaultJSONWriteTo_ fp = writeTo_ fp . JSON
 
 instance Show a => Writable (Shown a) where
   writeTo_ fp = writeTo_ fp . show . runShown
-  {-# INLINE writeTo_ #-}
+
 
 newtype Yaml a = Yaml { runYaml :: a }
                deriving (Read, Show, Eq, Ord, Generic)
 
 instance ToJSON a => Writable (Yaml a) where
   writeTo_ fp = writeTo_ fp . Y.encode . runYaml
-  {-# INLINE writeTo_ #-}
+
 
 newtype JSON a = JSON { runJSON :: a }
                deriving (Read, Show, Eq, Ord, Generic)
 
 instance ToJSON a => Writable (JSON a) where
   writeTo_ fp = writeTo_ fp . Ae.encode . runJSON
-  {-# INLINE writeTo_ #-}
+
 
 class Readable a where
   readFrom_ :: FilePath -> IO a
@@ -271,45 +271,41 @@ class Readable a where
 
 instance Readable String where
   readFrom_ = readFile
-  {-# INLINE readFrom_ #-}
+
   decompMetadata = fmap (second T.unpack) . splitMetadata . T.pack
-  {-# INLINE decompMetadata #-}
+
 
 instance Readable T.Text where
   readFrom_ = T.readFile
-  {-# INLINE readFrom_ #-}
+
   decompMetadata = splitMetadata
-  {-# INLINE decompMetadata #-}
+
 
 instance Readable LT.Text where
   readFrom_ = LT.readFile
-  {-# INLINE readFrom_ #-}
+
   decompMetadata = fmap (second LT.fromStrict) . splitMetadata . LT.toStrict
-  {-# INLINE decompMetadata #-}
+
 
 instance Readable BS.ByteString where
   readFrom_ = BS.readFile
-  {-# INLINE readFrom_ #-}
+
 
 instance Readable LBS.ByteString where
   readFrom_ = LBS.readFile
-  {-# INLINE readFrom_ #-}
+
 
 instance Store a => Readable (Binary a) where
   readFrom_ = either throwIO (return . Binary) . Store.decode <=< readFrom_
-  {-# SPECIALISE INLINE readFrom_ :: Store a => FilePath -> IO (Binary a) #-}
 
 instance Read a => Readable (Shown a) where
   readFrom_ = fmap Shown . (readM :: String -> IO a)  <=< readFrom_
-  {-# SPECIALISE INLINE readFrom_ :: Read a => FilePath -> IO (Shown a) #-}
 
 instance FromJSON a => Readable (Yaml a) where
   readFrom_ = either (throwIO . userError) (return . Yaml) . Y.decodeEither <=< readFrom_
-  {-# SPECIALISE INLINE readFrom_ :: FromJSON a => FilePath -> IO (Yaml a) #-}
 
 instance FromJSON a => Readable (JSON a) where
   readFrom_ = either (throwIO . userError) (return . JSON) . Ae.eitherDecode <=< readFrom_
-  {-# SPECIALISE INLINE readFrom_ :: FromJSON a => FilePath -> IO (JSON a) #-}
 
 defaultStoreReadFrom_ :: Store b => FilePath -> IO b
 defaultStoreReadFrom_ = fmap runBinary . readFrom_

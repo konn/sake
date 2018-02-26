@@ -99,7 +99,6 @@ library:
   - Web.Sake.Utils
   default-extensions:
   - OverloadedStrings
-  - TypeApplications
   - DeriveAnyClass
   - DeriveGeneric
   - MultiParamTypeClasses
