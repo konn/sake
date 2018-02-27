@@ -21,6 +21,6 @@ splitMetadata src =
       | T.all (== '-') fense
       , let fenseLen = T.length fense
       , fenseLen >= 3
-      , (yaml, "---" : body) <- L.break (== fense) rest
+      , (yaml, _ : body) <- L.break (== fense) rest
         -> right (, T.unlines body) $ Y.decodeEither $ T.encodeUtf8 $ T.unlines yaml
     _ -> Right (mempty, src)
