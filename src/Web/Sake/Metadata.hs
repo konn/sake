@@ -17,7 +17,10 @@ splitMetadata :: Text -> Either String (Metadata, Text)
 splitMetadata src =
   let ls = dropWhile T.null $ T.lines src
   in case ls of
-    ("---" : rest)
-      | (yaml, "---" : body) <- L.break (== "---") rest
+    (fense : rest)
+      | T.all (== '-') fense
+      , let fenseLen = T.length fense
+      , fenseLen >= 3
+      , (yaml, "---" : body) <- L.break (== fense) rest
         -> right (, T.unlines body) $ Y.decodeEither $ T.encodeUtf8 $ T.unlines yaml
     _ -> Right (mempty, src)
