@@ -28,6 +28,7 @@ data FeedConf = FeedConf { feedTitle       :: Text
                          , feedDescription :: Text
                          , feedAuthor      :: FeedAuthor
                          , feedRoot        :: Text
+                         , feedUrl         :: Text
                          }
                 deriving ( Read, Show, Eq, Ord
                          , Generic, Hashable, Store )
