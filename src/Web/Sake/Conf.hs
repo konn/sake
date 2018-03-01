@@ -5,6 +5,7 @@ import System.Exit  (ExitCode (..))
 
 data SakeConf = SakeConf { destinationDir :: FilePath
                          , cacheDir       :: FilePath
+                         , snapshotDir    :: FilePath
                          , sourceDir      :: FilePath
                          , ignoreFile     :: FilePath -> Bool
                          , deployMethod   :: DeployMethod
@@ -16,6 +17,7 @@ data SakeConf = SakeConf { destinationDir :: FilePath
 instance Default SakeConf where
   def = SakeConf { destinationDir = "_site"
                  , cacheDir = "_cache"
+                 , snapshotDir = "_snapshots"
                  , sourceDir = "src-site"
                  , ignoreFile = const False
                  , deployMethod = DeployCommand "echo \"No deployment method provided!\""
