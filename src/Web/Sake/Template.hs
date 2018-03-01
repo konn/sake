@@ -7,7 +7,8 @@ module Web.Sake.Template ( Context(..)
                          , metadataField, field, constField, bodyField
                          , defaultContext, titleField, listField
                          , objectContext, applyTemplateList, applyJoinTemplateList
-                         , dynField, field_
+                         , dynField, field_, publishedDateField, updatedDateField
+                         , makeDateField
                          ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -17,6 +18,7 @@ import Web.Sake.Metadata
 import           Control.Monad              ((<=<))
 import           Data.Aeson                 (ToJSON, Value (Object), encode,
                                              toJSON)
+import           Data.Foldable              (asum)
 import           Data.Functor.Contravariant (Contravariant (..))
 import qualified Data.HashMap.Strict        as HM
 import           Data.Semigroup             (Semigroup (..))
@@ -24,8 +26,11 @@ import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import qualified Data.Text.Lazy             as LT
 import qualified Data.Text.Lazy.Encoding    as LT
+import           Data.Time                  (defaultTimeLocale, parseTimeM,
+                                             utcToLocalZonedTime)
 import           Language.Haskell.TH        (ExpQ, Name, listE, litE, nameBase,
                                              stringL, varE)
+import           System.Directory           (getModificationTime)
 import           System.FilePath            (takeBaseName)
 
 newtype Context a = Context { runContext :: forall m. MonadSake m => Item a -> m Metadata }
@@ -137,3 +142,19 @@ dynField names =
             [ [| (T.pack $(litE $ stringL $ nameBase n), toJSON $(varE n)) |]
             | n <- names]
   in [| HM.fromList $(dic) |]
+
+publishedDateField :: String -> String -> Context a
+publishedDateField = makeDateField ["published", "date"]
+
+updatedDateField :: String -> String -> Context a
+updatedDateField = makeDateField ["updated", "date"]
+
+makeDateField :: [Text] -> String -> String -> Context b
+makeDateField fields key fmt = field key $ \item ->
+  let readT = parseTimeM True defaultTimeLocale fmt
+      mdate = asum [readT =<< lookupMetadata f item | f <- fields ]
+  in case mdate of
+    Just date -> return date
+    Nothing ->
+      liftIO $
+      utcToLocalZonedTime =<< getModificationTime (itemPath item)
