@@ -18,7 +18,6 @@ import Web.Sake.Metadata
 import           Control.Monad              ((<=<))
 import           Data.Aeson                 (ToJSON, Value (Object), encode,
                                              toJSON)
-import           Data.Foldable              (asum)
 import           Data.Functor.Contravariant (Contravariant (..))
 import qualified Data.HashMap.Strict        as HM
 import           Data.Semigroup             (Semigroup (..))
@@ -26,12 +25,10 @@ import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import qualified Data.Text.Lazy             as LT
 import qualified Data.Text.Lazy.Encoding    as LT
-import           Data.Time                  (defaultTimeLocale, parseTimeM,
-                                             utcToLocalZonedTime)
-import           Language.Haskell.TH        (ExpQ, Name, listE, litE, nameBase,
-                                             stringL, varE)
-import           System.Directory           (getModificationTime)
-import           System.FilePath            (takeBaseName)
+import           Data.Time                  (defaultTimeLocale, formatTime)
+
+import Language.Haskell.TH (ExpQ, Name, listE, litE, nameBase, stringL, varE)
+import System.FilePath     (takeBaseName)
 
 newtype Context a = Context { runContext :: forall m. MonadSake m => Item a -> m Metadata }
 
@@ -144,17 +141,16 @@ dynField names =
   in [| HM.fromList $(dic) |]
 
 publishedDateField :: String -> String -> Context a
-publishedDateField = makeDateField ["published", "date"]
+publishedDateField = makeDateField [] ["published", "date"]
 
 updatedDateField :: String -> String -> Context a
-updatedDateField = makeDateField ["updated", "date"]
+updatedDateField = makeDateField [] ["updated", "date"]
 
-makeDateField :: [Text] -> String -> String -> Context b
-makeDateField fields key fmt = field key $ \item ->
-  let readT = parseTimeM True defaultTimeLocale fmt
-      mdate = asum [readT =<< lookupMetadata f item | f <- fields ]
-  in case mdate of
-    Just date -> return date
-    Nothing ->
-      liftIO $
-      utcToLocalZonedTime =<< getModificationTime (itemPath item)
+makeDateField :: [Text]         -- ^ metadata fields to check
+              -> [String]       -- ^ acceptable input formats
+              -> String         -- ^ template key name
+              -> String         -- ^ output format
+              -> Context b
+makeDateField fields fmt0 key fmt =
+  field key $
+  fmap (formatTime defaultTimeLocale fmt) . itemDate' fields fmt0

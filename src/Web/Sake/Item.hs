@@ -1,17 +1,19 @@
-{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric  #-}
-{-# LANGUAGE DeriveTraversable, LambdaCase, NamedFieldPuns #-}
-{-# LANGUAGE NoMonomorphismRestriction, RecordWildCards    #-}
-{-# LANGUAGE ScopedTypeVariables                           #-}
+{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric     #-}
+{-# LANGUAGE DeriveTraversable, LambdaCase, NamedFieldPuns    #-}
+{-# LANGUAGE NoMonomorphismRestriction, PartialTypeSignatures #-}
+{-# LANGUAGE RecordWildCards, ScopedTypeVariables             #-}
 module Web.Sake.Item
        ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
        , readPandoc, writePandoc, compilePandoc, loadMetadata
-       , lookupMetadata, itemPath, setItemBody
+       , lookupMetadata, itemPath, setItemBody, itemDate'
+       , itemPublishedDate, itemUpdatedDate
        ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
 import Web.Sake.Metadata
 
 import qualified Data.Aeson              as A
+import           Data.Foldable           (asum)
 import           Data.Hashable           (Hashable)
 import qualified Data.HashMap.Strict     as HM
 import           Data.Maybe              (fromMaybe)
@@ -20,7 +22,10 @@ import           Data.Store              (Store)
 import           Data.Text               (Text)
 import qualified Data.Text.Lazy          as LT
 import qualified Data.Text.Lazy.Encoding as LT
+import           Data.Time               (ZonedTime, defaultTimeLocale,
+                                          parseTimeM, utcToLocalZonedTime)
 import           GHC.Generics            (Generic)
+import           System.Directory        (getModificationTime)
 import           System.FilePath         (takeExtension)
 import           Text.Pandoc             (MetaValue (..), Pandoc (..), PandocIO,
                                           Reader (..), ReaderOptions,
@@ -143,3 +148,30 @@ setItemBody bdy i = i { itemBody = bdy }
 
 itemPath :: Item a -> FilePath
 itemPath = runIdentifier . itemIdentifier
+
+itemPublishedDate :: MonadIO m => Item a -> m ZonedTime
+itemPublishedDate = itemDate' ["published", "date"] []
+
+itemUpdatedDate :: MonadIO m => Item a -> m ZonedTime
+itemUpdatedDate = itemDate' ["updated", "date"] []
+
+itemDate' :: MonadIO m => [Text] -> [String] -> Item a -> m ZonedTime
+itemDate' fields fmt0 item =
+  let mdate = asum [readT =<< lookupMetadata f item | f <- fields ]
+  in case mdate of
+      Just date -> return date
+      Nothing ->
+        liftIO $
+        utcToLocalZonedTime =<< getModificationTime (itemPath item)
+  where
+    readT i = asum [ parseTimeM True defaultTimeLocale f i | f <- fmts ]
+    fmts =
+      [ "%Y/%m/%d %X %Z"
+      , "%a, %d %b %Y %H:%M:%S %Z"
+      , "%Y-%m-%dT%H:%M:%S%Z"
+      , "%Y-%m-%d %H:%M:%S%Z"
+      , "%Y-%m-%d"
+      , "%B %e, %Y %l:%M %p"
+      , "%B %e, %Y"
+      , "%b %d, %Y"
+      ] ++ fmt0
