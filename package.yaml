@@ -28,72 +28,45 @@ description: |
   Please see the README on Github at <https://github.com/konn/sake#readme>
 
 dependencies:
-- HaTeX
-- aeson
 - base >= 4.7 && < 5
-- blaze-builder
-- blaze-html
-- blaze-markup
-- bytestring
-- case-insensitive
-- containers
-- contravariant
-- cryptohash-sha256
-- data-default
-- directory
-- dlist
-- doctemplates
-- filepath
-- fsnotify
-- hashable
-- http-conduit
-- http-types
-- latex-crossref
-- lens
-- lifted-base
-- megaparsec
-- monad-control
-- monad-loops
-- mtl
-- network-uri
-- operational
-- pandoc
-- pandoc-citeproc
-- pandoc-crossref
-- pandoc-types
-- parsec
-- process
-- reflection
-- regex-applicative
-- shake
-- shakespeare
-- shelly
-- skylighting
-- stache
-- stm
-- stm-chans
-- store
-- system-fileio
-- system-filepath
-- tagsoup
-- template-haskell
-- temporary
-- texmath
 - text
 - text-icu
-- th-lift
-- time
-- unordered-containers
-- vector
-- wai
 - wai-app-static
 - warp
-- yaml
+- contravariant
+- data-default
+- filepath
+- megaparsec
+- pandoc
+- shake
+- stache
+- store
 
 ghc-options:
 - -Wall
 
 library:
+  dependencies:
+  - aeson
+  - blaze-html
+  - bytestring
+  - containers
+  - cryptohash-sha256
+  - directory
+  - doctemplates
+  - hashable
+  - mtl
+  - operational
+  - pandoc-types
+  - reflection
+  - shakespeare
+  - tagsoup
+  - template-haskell
+  - time
+  - unordered-containers
+  - wai
+  - yaml
+
   source-dirs: src
   other-modules:
   - Web.Sake.Utils
@@ -122,15 +95,14 @@ executables:
     - sake
     - shake
     - text
-    - bytestring
 
 tests:
-  sake-test:
-    main:                Spec.hs
-    source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - sake
+  # sake-test:
+  #   main:                Spec.hs
+  #   source-dirs:         test
+  #   ghc-options:
+  #   - -threaded
+  #   - -rtsopts
+  #   - -with-rtsopts=-N
+  #   dependencies:
+  #   - sake

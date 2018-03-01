@@ -63,51 +63,57 @@ newtype Sake a = Sake { unSake unSake38,39
 runSake runSake41,42
 runSake runSake42,43
 
-./src/Web/Sake/Template.hs,1557
+./src/Web/Sake/Template.hs,1812
 module Web.Sake.Template Web.Sake.Template2,3
-import import16,17
-newtype Context Context30,31
-newtype Context a = Context Context30,31
-newtype Context a = Context { runContext runContext30,31
-instance instance32,33
-metadataField metadataField43,44
-metadataField metadataField44,45
-class Templatable Templatable46,47
-  applyToMetadata :: MonadSake m => tmpl tmpl48,49
-  compileTemplate compileTemplate47,48
-  applyToMetadata applyToMetadata48,49
-applyAsTemplate' applyAsTemplate'50,51
+import import17,18
+newtype Context Context32,33
+newtype Context a = Context Context32,33
+newtype Context a = Context { runContext runContext32,33
+instance instance34,35
+metadataField metadataField45,46
+metadataField metadataField46,47
+class Templatable Templatable48,49
+  applyToMetadata :: MonadSake m => tmpl tmpl50,51
+  compileTemplate compileTemplate49,50
+  applyToMetadata applyToMetadata50,51
 applyAsTemplate' applyAsTemplate'52,53
-applyTemplate applyTemplate57,58
-applyTemplate applyTemplate60,61
-loadTemplate loadTemplate66,67
-loadTemplate loadTemplate67,68
-loadAndApplyTemplate loadAndApplyTemplate74,75
-loadAndApplyTemplate loadAndApplyTemplate81,82
-field field85,86
-field field86,87
-field_ field_88,89
-field_ field_89,90
-constField constField91,92
-constField constField92,93
-objectContext objectContext96,97
-objectContext objectContext97,98
-bodyField bodyField103,104
-bodyField bodyField104,105
-pathField pathField106,107
-pathField pathField107,108
-defaultContext defaultContext109,110
-defaultContext defaultContext110,111
-titleField titleField113,114
-titleField titleField114,115
-listField listField116,117
-listField listField117,118
-applyTemplateList applyTemplateList119,120
-applyTemplateList applyTemplateList120,121
-applyJoinTemplateList applyJoinTemplateList122,123
+applyAsTemplate' applyAsTemplate'54,55
+applyTemplate applyTemplate59,60
+applyTemplate applyTemplate62,63
+loadTemplate loadTemplate68,69
+loadTemplate loadTemplate69,70
+loadAndApplyTemplate loadAndApplyTemplate76,77
+loadAndApplyTemplate loadAndApplyTemplate83,84
+field field87,88
+field field88,89
+field_ field_90,91
+field_ field_91,92
+constField constField93,94
+constField constField94,95
+objectContext objectContext98,99
+objectContext objectContext99,100
+bodyField bodyField105,106
+bodyField bodyField106,107
+pathField pathField108,109
+pathField pathField109,110
+defaultContext defaultContext111,112
+defaultContext defaultContext112,113
+titleField titleField115,116
+titleField titleField116,117
+listField listField118,119
+listField listField119,120
+applyTemplateList applyTemplateList121,122
+applyTemplateList applyTemplateList122,123
 applyJoinTemplateList applyJoinTemplateList124,125
-dynField dynField133,134
-dynField dynField134,135
+applyJoinTemplateList applyJoinTemplateList126,127
+dynField dynField135,136
+dynField dynField136,137
+publishedDateField publishedDateField142,143
+publishedDateField publishedDateField143,144
+updatedDateField updatedDateField145,146
+updatedDateField updatedDateField146,147
+makeDateField makeDateField148,149
+makeDateField makeDateField153,154
 
 ./src/Web/Sake/Class.hs,4242
 module Web.Sake.ClassWeb.Sake.Class4,5
@@ -223,41 +229,55 @@ readM readM5,6
 ./src/Web/Sake/Orphans.hs,46
 module Web.Sake.Orphans Web.Sake.Orphans0,1
 
-./src/Web/Sake/Item.hs,1117
-module Web.Sake.ItemWeb.Sake.Item3,4
-data Item Item29,30
-data Item a = Item Item29,30
-data Item a = Item { itemBody itemBody29,30
-                   , itemMetadata itemMetadata30,31
-                   , itemIdentifier itemIdentifier31,32
-loadItem loadItem38,39
-loadItem loadItem39,40
-loadBinary loadBinary46,47
-loadBinary loadBinary47,48
-loadYaml loadYaml49,50
-loadYaml loadYaml50,51
-loadJSON loadJSON52,53
-loadJSON loadJSON53,54
-loadUnwrapped loadUnwrapped55,56
-loadUnwrapped loadUnwrapped56,57
-extensionDict extensionDict60,61
-extensionDict extensionDict61,62
-feedReader feedReader67,68
-feedReader feedReader68,69
-isMetaValue isMetaValue71,72
-isMetaValue isMetaValue72,73
-readPandoc readPandoc79,80
-readPandoc readPandoc80,81
-fromMetaValue fromMetaValue99,100
-fromMetaValue fromMetaValue100,101
-runPandoc runPandoc107,108
-runPandoc runPandoc108,109
-writePandoc writePandoc113,114
-writePandoc writePandoc114,115
-compilePandoc compilePandoc122,123
-compilePandoc compilePandoc123,124
-loadMetadata loadMetadata126,127
-loadMetadata loadMetadata127,128
+./src/Web/Sake/Item.hs,1612
+module Web.Sake.ItemWeb.Sake.Item4,5
+data Item Item36,37
+data Item a = Item Item36,37
+data Item a = Item { itemBody itemBody36,37
+                   , itemMetadata itemMetadata37,38
+                   , itemIdentifier itemIdentifier38,39
+loadItem loadItem45,46
+loadItem loadItem46,47
+loadBinary loadBinary53,54
+loadBinary loadBinary54,55
+loadYaml loadYaml56,57
+loadYaml loadYaml57,58
+loadJSON loadJSON59,60
+loadJSON loadJSON60,61
+loadUnwrapped loadUnwrapped62,63
+loadUnwrapped loadUnwrapped63,64
+extensionDict extensionDict67,68
+extensionDict extensionDict68,69
+feedReader feedReader74,75
+feedReader feedReader75,76
+isMetaValue isMetaValue78,79
+isMetaValue isMetaValue79,80
+readPandoc readPandoc86,87
+readPandoc readPandoc87,88
+fromMetaValue fromMetaValue106,107
+fromMetaValue fromMetaValue107,108
+runPandoc runPandoc114,115
+runPandoc runPandoc115,116
+writePandoc writePandoc120,121
+writePandoc writePandoc121,122
+compilePandoc compilePandoc129,130
+compilePandoc compilePandoc130,131
+loadMetadata loadMetadata133,134
+loadMetadata loadMetadata134,135
+lookupMetadata lookupMetadata137,138
+lookupMetadata lookupMetadata138,139
+maybeResult maybeResult141,142
+maybeResult maybeResult142,143
+setItemBody setItemBody145,146
+setItemBody setItemBody146,147
+itemPath itemPath148,149
+itemPath itemPath149,150
+itemPublishedDate itemPublishedDate151,152
+itemPublishedDate itemPublishedDate152,153
+itemUpdatedDate itemUpdatedDate154,155
+itemUpdatedDate itemUpdatedDate155,156
+itemDate' itemDate'157,158
+itemDate' itemDate'158,159
 
 ./src/Web/Sake/Template/Mustache.hs,296
 module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache3,4
@@ -301,33 +321,39 @@ type Metadata Metadata13,14
 splitMetadata splitMetadata15,16
 splitMetadata splitMetadata16,17
 
-./src/Web/Sake/Feed.hs,1028
+./src/Web/Sake/Feed.hs,1254
 module Web.Sake.FeedWeb.Sake.Feed1,2
-rssTemplate rssTemplate20,21
-rssTemplate rssTemplate21,22
-atomTemplate atomTemplate23,24
-atomTemplate atomTemplate24,25
-data FeedConf FeedConf26,27
-data FeedConf = FeedConf FeedConf26,27
-data FeedConf = FeedConf { feedTitle feedTitle26,27
-                         , feedDescription feedDescription27,28
-                         , feedAuthor feedAuthor28,29
-                         , feedRoot feedRoot29,30
-data FeedAuthor FeedAuthor34,35
-data FeedAuthor = FeedAuthor FeedAuthor34,35
-data FeedAuthor = FeedAuthor { authorName authorName34,35
-                             , authorEmail authorEmail35,36
-feedConfOptions feedConfOptions40,41
-feedConfOptions feedConfOptions41,42
-feedAuthorOptions feedAuthorOptions45,46
-feedAuthorOptions feedAuthorOptions46,47
-instance instance50,51
-renderRss renderRss62,63
-renderRss renderRss63,64
-renderAtom renderAtom65,66
-renderAtom renderAtom66,67
-renderFeed renderFeed68,69
-renderFeed renderFeed70,71
+import import9,10
+rssTemplate rssTemplate29,30
+rssTemplate rssTemplate30,31
+atomTemplate atomTemplate32,33
+atomTemplate atomTemplate33,34
+data FeedConf FeedConf35,36
+data FeedConf = FeedConf FeedConf35,36
+data FeedConf = FeedConf { feedTitle feedTitle35,36
+                         , feedDescription feedDescription36,37
+                         , feedAuthor feedAuthor37,38
+                         , feedRoot feedRoot38,39
+                         , feedUrl feedUrl39,40
+instance instance44,45
+data FeedAuthor FeedAuthor52,53
+data FeedAuthor = FeedAuthor FeedAuthor52,53
+data FeedAuthor = FeedAuthor { authorName authorName52,53
+                             , authorEmail authorEmail53,54
+feedConfOptions feedConfOptions58,59
+feedConfOptions feedConfOptions59,60
+feedAuthorOptions feedAuthorOptions63,64
+feedAuthorOptions feedAuthorOptions64,65
+renderRss renderRss80,81
+renderRss renderRss81,82
+renderAtom renderAtom83,84
+renderAtom renderAtom84,85
+renderFeed renderFeed86,87
+renderFeed renderFeed88,89
+maybeResult maybeResult104,105
+maybeResult maybeResult105,106
+formatForAtomDate formatForAtomDate108,109
+formatForAtomDate formatForAtomDate109,110
 
 ./src/Web/Sake/Html.hs,569
 module Web.Sake.HtmlWeb.Sake.Html3,4
@@ -364,23 +390,24 @@ withFilePath withFilePath40,41
 setExtension setExtension42,43
 setExtension setExtension43,44
 
-./src/Web/Sake/Conf.hs,810
+./src/Web/Sake/Conf.hs,868
 module Web.Sake.Conf Web.Sake.Conf0,1
 data SakeConf SakeConf5,6
 data SakeConf = SakeConf SakeConf5,6
 data SakeConf = SakeConf { destinationDir destinationDir5,6
                          , cacheDir cacheDir6,7
-                         , sourceDir sourceDir7,8
-                         , ignoreFile ignoreFile8,9
-                         , deployMethod deployMethod9,10
-                         , previewHost previewHost10,11
-                         , previewPort previewPort11,12
-instance instance15,16
-data DeployMethod DeployMethod25,26
-data DeployMethod = DeployCommand DeployCommand25,26
-data DeployMethod = DeployCommand { deployCommand deployCommand25,26
-                  | DeployAction DeployAction26,27
-                  | DeployAction { deployAction deployAction26,27
+                         , snapshotDir snapshotDir7,8
+                         , sourceDir sourceDir8,9
+                         , ignoreFile ignoreFile9,10
+                         , deployMethod deployMethod10,11
+                         , previewHost previewHost11,12
+                         , previewPort previewPort12,13
+instance instance16,17
+data DeployMethod DeployMethod27,28
+data DeployMethod = DeployCommand DeployCommand27,28
+data DeployMethod = DeployCommand { deployCommand deployCommand27,28
+                  | DeployAction DeployAction28,29
+                  | DeployAction { deployAction deployAction28,29
 
 ./src/Web/Sake/Given.hs,881
 module Web.Sake.GivenWeb.Sake.Given1,2

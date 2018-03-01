@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 58f1e5bdedf3457aac38f5c0e3f093b8af386bdcb77af3c83312cc1fd9c97751
+-- hash: 84e5fb6e24f253f248e5cdf381def4e3fb71f451dd659d00a600085e475b689e
 
 name:           sake
 version:        0.1.0.0
@@ -40,63 +40,34 @@ library
   default-extensions: OverloadedStrings DeriveAnyClass DeriveGeneric MultiParamTypeClasses
   ghc-options: -Wall
   build-depends:
-      HaTeX
-    , aeson
+      aeson
     , base >=4.7 && <5
-    , blaze-builder
     , blaze-html
-    , blaze-markup
     , bytestring
-    , case-insensitive
     , containers
     , contravariant
     , cryptohash-sha256
     , data-default
     , directory
-    , dlist
     , doctemplates
     , filepath
-    , fsnotify
     , hashable
-    , http-conduit
-    , http-types
-    , latex-crossref
-    , lens
-    , lifted-base
     , megaparsec
-    , monad-control
-    , monad-loops
     , mtl
-    , network-uri
     , operational
     , pandoc
-    , pandoc-citeproc
-    , pandoc-crossref
     , pandoc-types
-    , parsec
-    , process
     , reflection
-    , regex-applicative
     , shake
     , shakespeare
-    , shelly
-    , skylighting
     , stache
-    , stm
-    , stm-chans
     , store
-    , system-fileio
-    , system-filepath
     , tagsoup
     , template-haskell
-    , temporary
-    , texmath
     , text
     , text-icu
-    , th-lift
     , time
     , unordered-containers
-    , vector
     , wai
     , wai-app-static
     , warp
@@ -128,145 +99,24 @@ executable site
       app
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
-      HaTeX
-    , aeson
-    , base >=4.7 && <5
-    , blaze-builder
-    , blaze-html
-    , blaze-markup
-    , bytestring
-    , case-insensitive
-    , containers
+      base >=4.7 && <5
     , contravariant
-    , cryptohash-sha256
     , data-default
-    , directory
-    , dlist
-    , doctemplates
     , filepath
-    , fsnotify
-    , hashable
-    , http-conduit
-    , http-types
-    , latex-crossref
-    , lens
-    , lifted-base
     , megaparsec
-    , monad-control
-    , monad-loops
-    , mtl
-    , network-uri
-    , operational
     , pandoc
-    , pandoc-citeproc
-    , pandoc-crossref
-    , pandoc-types
-    , parsec
-    , process
-    , reflection
-    , regex-applicative
     , sake
     , shake
-    , shakespeare
-    , shelly
-    , skylighting
     , stache
-    , stm
-    , stm-chans
     , store
-    , system-fileio
-    , system-filepath
-    , tagsoup
-    , template-haskell
-    , temporary
-    , texmath
     , text
     , text-icu
-    , th-lift
-    , time
-    , unordered-containers
-    , vector
-    , wai
     , wai-app-static
     , warp
-    , yaml
   if flag(example)
     buildable: True
   else
     buildable: False
-  other-modules:
-      Paths_sake
-  default-language: Haskell2010
-
-test-suite sake-test
-  type: exitcode-stdio-1.0
-  main-is: Spec.hs
-  hs-source-dirs:
-      test
-  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      HaTeX
-    , aeson
-    , base >=4.7 && <5
-    , blaze-builder
-    , blaze-html
-    , blaze-markup
-    , bytestring
-    , case-insensitive
-    , containers
-    , contravariant
-    , cryptohash-sha256
-    , data-default
-    , directory
-    , dlist
-    , doctemplates
-    , filepath
-    , fsnotify
-    , hashable
-    , http-conduit
-    , http-types
-    , latex-crossref
-    , lens
-    , lifted-base
-    , megaparsec
-    , monad-control
-    , monad-loops
-    , mtl
-    , network-uri
-    , operational
-    , pandoc
-    , pandoc-citeproc
-    , pandoc-crossref
-    , pandoc-types
-    , parsec
-    , process
-    , reflection
-    , regex-applicative
-    , sake
-    , shake
-    , shakespeare
-    , shelly
-    , skylighting
-    , stache
-    , stm
-    , stm-chans
-    , store
-    , system-fileio
-    , system-filepath
-    , tagsoup
-    , template-haskell
-    , temporary
-    , texmath
-    , text
-    , text-icu
-    , th-lift
-    , time
-    , unordered-containers
-    , vector
-    , wai
-    , wai-app-static
-    , warp
-    , yaml
   other-modules:
       Paths_sake
   default-language: Haskell2010
