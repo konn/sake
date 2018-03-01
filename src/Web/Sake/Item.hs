@@ -1,9 +1,11 @@
-{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric             #-}
-{-# LANGUAGE DeriveTraversable, LambdaCase, NoMonomorphismRestriction #-}
-{-# LANGUAGE RecordWildCards, ScopedTypeVariables                     #-}
+{-# LANGUAGE DeriveAnyClass, DeriveFunctor, DeriveGeneric  #-}
+{-# LANGUAGE DeriveTraversable, LambdaCase, NamedFieldPuns #-}
+{-# LANGUAGE NoMonomorphismRestriction, RecordWildCards    #-}
+{-# LANGUAGE ScopedTypeVariables                           #-}
 module Web.Sake.Item
        ( Item(..), loadItem, loadBinary, loadJSON, loadYaml
        , readPandoc, writePandoc, compilePandoc, loadMetadata
+       , lookupMetadata, itemPath, setItemBody
        ) where
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -126,3 +128,18 @@ compilePandoc rOpt wOpt i =
 
 loadMetadata :: MonadSake m => FilePath -> m Metadata
 loadMetadata path = (itemMetadata :: Item MetadataOnly -> Metadata) <$> loadItem path
+
+
+lookupMetadata :: A.FromJSON b => Text -> Item a -> Maybe b
+lookupMetadata key Item{itemMetadata} =
+  maybeResult . A.fromJSON =<< HM.lookup key itemMetadata
+
+maybeResult :: A.Result a -> Maybe a
+maybeResult (A.Success a) = Just a
+maybeResult _             = Nothing
+
+setItemBody :: a1 -> Item a2 -> Item a1
+setItemBody bdy i = i { itemBody = bdy }
+
+itemPath :: Item a -> FilePath
+itemPath = runIdentifier . itemIdentifier
