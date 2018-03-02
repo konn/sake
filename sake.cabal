@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 84e5fb6e24f253f248e5cdf381def4e3fb71f451dd659d00a600085e475b689e
+-- hash: 6a50e93680bdad6f61db2e78f353227da3742498cc3b62ce1c0f4a668c6ffffa
 
 name:           sake
 version:        0.1.0.0
@@ -78,7 +78,6 @@ library
       Web.Sake.Conf
       Web.Sake.Feed
       Web.Sake.Forward
-      Web.Sake.Given
       Web.Sake.Html
       Web.Sake.Identifier
       Web.Sake.Item

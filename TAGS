@@ -229,55 +229,56 @@ readM readM5,6
 ./src/Web/Sake/Orphans.hs,46
 module Web.Sake.Orphans Web.Sake.Orphans0,1
 
-./src/Web/Sake/Item.hs,1612
+./src/Web/Sake/Item.hs,1662
 module Web.Sake.ItemWeb.Sake.Item4,5
 data Item Item36,37
 data Item a = Item Item36,37
 data Item a = Item { itemBody itemBody36,37
                    , itemMetadata itemMetadata37,38
                    , itemIdentifier itemIdentifier38,39
-loadItem loadItem45,46
+                   , itemTarget itemTarget39,40
 loadItem loadItem46,47
-loadBinary loadBinary53,54
+loadItem loadItem47,48
 loadBinary loadBinary54,55
-loadYaml loadYaml56,57
+loadBinary loadBinary55,56
 loadYaml loadYaml57,58
-loadJSON loadJSON59,60
+loadYaml loadYaml58,59
 loadJSON loadJSON60,61
-loadUnwrapped loadUnwrapped62,63
+loadJSON loadJSON61,62
 loadUnwrapped loadUnwrapped63,64
-extensionDict extensionDict67,68
+loadUnwrapped loadUnwrapped64,65
 extensionDict extensionDict68,69
-feedReader feedReader74,75
+extensionDict extensionDict69,70
 feedReader feedReader75,76
-isMetaValue isMetaValue78,79
+feedReader feedReader76,77
 isMetaValue isMetaValue79,80
-readPandoc readPandoc86,87
+isMetaValue isMetaValue80,81
 readPandoc readPandoc87,88
-fromMetaValue fromMetaValue106,107
+readPandoc readPandoc88,89
 fromMetaValue fromMetaValue107,108
-runPandoc runPandoc114,115
+fromMetaValue fromMetaValue108,109
 runPandoc runPandoc115,116
-writePandoc writePandoc120,121
+runPandoc runPandoc116,117
 writePandoc writePandoc121,122
-compilePandoc compilePandoc129,130
+writePandoc writePandoc122,123
 compilePandoc compilePandoc130,131
-loadMetadata loadMetadata133,134
+compilePandoc compilePandoc131,132
 loadMetadata loadMetadata134,135
-lookupMetadata lookupMetadata137,138
+loadMetadata loadMetadata135,136
 lookupMetadata lookupMetadata138,139
-maybeResult maybeResult141,142
+lookupMetadata lookupMetadata139,140
 maybeResult maybeResult142,143
-setItemBody setItemBody145,146
+maybeResult maybeResult143,144
 setItemBody setItemBody146,147
-itemPath itemPath148,149
+setItemBody setItemBody147,148
 itemPath itemPath149,150
-itemPublishedDate itemPublishedDate151,152
+itemPath itemPath150,151
 itemPublishedDate itemPublishedDate152,153
-itemUpdatedDate itemUpdatedDate154,155
+itemPublishedDate itemPublishedDate153,154
 itemUpdatedDate itemUpdatedDate155,156
-itemDate' itemDate'157,158
+itemUpdatedDate itemUpdatedDate156,157
 itemDate' itemDate'158,159
+itemDate' itemDate'159,160
 
 ./src/Web/Sake/Template/Mustache.hs,296
 module Web.Sake.Template.MustacheWeb.Sake.Template.Mustache3,4
