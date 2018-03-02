@@ -37,6 +37,7 @@ import           Text.Pandoc.Shared      (stringify)
 data Item a = Item { itemBody       :: a
                    , itemMetadata   :: Metadata
                    , itemIdentifier :: Identifier
+                   , itemTarget     :: FilePath
                    }
             deriving (Read, Show, Eq, Functor,
                       Generic, Hashable, Traversable, Foldable
@@ -49,7 +50,7 @@ loadItem fp = do
   case eith of
     Left err -> error err
     Right (meta, body) ->
-      return $ Item body meta $ Identifier fp
+      return $ Item body meta (Identifier fp) fp
 
 loadBinary :: (Store a, MonadSake m) => FilePath -> m (Item a)
 loadBinary = loadUnwrapped runBinary
@@ -63,7 +64,7 @@ loadJSON = loadUnwrapped runJSON
 loadUnwrapped :: (Readable (f a), MonadSake m) => (f a -> a) -> FilePath -> m (Item a)
 loadUnwrapped unwrap fp = do
   body <- readFromFile' fp
-  return $ Item (unwrap body) mempty $ Identifier fp
+  return $ Item (unwrap body) mempty (Identifier fp) fp
 
 extensionDict :: [(String, String)]
 extensionDict =
