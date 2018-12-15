@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.20.0.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6a50e93680bdad6f61db2e78f353227da3742498cc3b62ce1c0f4a668c6ffffa
+-- hash: 65e79bbecf1065c0af9aa0d6609246103aafdb4ef5df8e703540bb75bb7459fa
 
 name:           sake
 version:        0.1.0.0
@@ -17,13 +19,11 @@ copyright:      2018 (c) Hiromi ISHII
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
-
 extra-source-files:
+    README.md
     ChangeLog.md
     data/atom.mustache
     data/rss.mustache
-    README.md
 
 source-repository head
   type: git

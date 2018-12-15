@@ -1,23 +1,19 @@
-resolver: lts-10.5
+resolver: lts-12.4
 
 packages:
-- .
+  - .
 
 extra-deps:
-- pandoc-crossref-0.3.0.1
-- roman-numerals-0.5.1.5
-
-- git: git@github.com:konn/latex-crossref.git
-  commit: 79c9ac25f2bb1bfcb40f261a0ea4ffaefd295067
-- git: git@github.com:konn/HaTeX-qq.git
-  commit: 2934925deecb0c080dfc026bec6127ea4a37525c
+  - git: git@github.com:konn/latex-crossref.git
+    commit: 79c9ac25f2bb1bfcb40f261a0ea4ffaefd295067
+  - git: git@github.com:konn/HaTeX-qq.git
+    commit: 2934925deecb0c080dfc026bec6127ea4a37525c
 
 extra-lib-dirs:
-- /usr/local/opt/icu4c/lib
+  - /usr/local/opt/icu4c/lib
 
 extra-include-dirs:
-- /usr/local/opt/icu4c/include
-
+  - /usr/local/opt/icu4c/include
 # build:
 #   haddock: true
 #   haddock-deps: false

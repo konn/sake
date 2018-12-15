@@ -6,8 +6,8 @@ module Web.Sake.Route
 import Web.Sake.Class
 
 import Control.Monad              ((>=>))
+import Data.Monoid                (Monoid (..))
 import Data.Semigroup             (Semigroup (..))
-import Data.Semigroup             (Monoid (..))
 import Development.Shake.FilePath
 
 -- | Routing function.
