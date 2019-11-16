@@ -7,6 +7,7 @@ import Web.Sake.Identifier
 import Web.Sake.Item
 import Web.Sake.Route
 
+import Control.Monad.Fail
 import Control.Monad.Operational
 import Control.Monad.Reader
 import Development.Shake         (Action, FilePattern, Rules)
@@ -16,7 +17,7 @@ data SakeActionEnv = SAEnv { target :: FilePath
                            }
 
 newtype SakeAction a = SakeAction { unSakeAction :: ReaderT SakeActionEnv Action a }
-                     deriving newtype (Functor, Applicative, Monad, MonadIO)
+                     deriving newtype (Functor, Applicative, Monad, MonadIO, MonadFail)
 
 newtype Key a = Key { unKey :: Identifier }
               deriving (Show, Eq, Ord)

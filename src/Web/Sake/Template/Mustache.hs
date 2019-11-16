@@ -15,7 +15,7 @@ import           Data.Aeson      (toJSON)
 import           Data.String     (IsString (fromString))
 import           Data.Text       (Text)
 import qualified Data.Text.Lazy  as LT
-import           Text.Megaparsec (parseErrorPretty')
+import           Text.Megaparsec (errorBundlePretty)
 import           Text.Mustache   (Template, compileMustacheFile,
                                   compileMustacheText, renderMustache)
 
@@ -25,7 +25,7 @@ type Mustache = Template
 
 instance Templatable Mustache where
   compileTemplate ident src =
-    return $ left (parseErrorPretty' src) $ compileMustacheText (fromString $ runIdentifier ident) src
+    return $ left errorBundlePretty $ compileMustacheText (fromString $ runIdentifier ident) src
   applyToMetadata tmpl meta =
     return $ Right $ LT.toStrict $ renderMustache tmpl $ toJSON meta
 

@@ -29,6 +29,7 @@ import Web.Sake.Utils
 import           Control.Arrow                 (second)
 import           Control.Exception             (throwIO)
 import           Control.Monad                 ((<=<))
+import           Control.Monad.Fail
 import           Control.Monad.IO.Class        (MonadIO (..))
 import           Data.Aeson                    (FromJSON, ToJSON)
 import qualified Data.Aeson                    as Ae
@@ -53,7 +54,7 @@ import qualified Text.Blaze.Html.Renderer.Text as Html
 -- | Monad with @'Sh.Action'@ like dependency specification functionality.
 --
 --   Naming convention: functions with extra dependency tracking ends with @'@.
-class (MonadIO m) => MonadSake m where
+class (MonadIO m, MonadFail m) => MonadSake m where
   need   :: [FilePath] -> m ()
   needed :: [FilePath] -> m ()
 

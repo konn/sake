@@ -1,5 +1,5 @@
-{-# LANGUAGE DerivingStrategies, GADTs, GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE PatternSynonyms, RankNTypes                           #-}
+{-# LANGUAGE DerivingStrategies, GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE PatternSynonyms, RankNTypes                    #-}
 module Web.Sake.Route
        ( Route, idRoute, constRoute, withFilePath, setExtension
        ) where
