@@ -29,7 +29,6 @@ import Web.Sake.Utils
 import           Control.Arrow                 (second)
 import           Control.Exception             (throwIO)
 import           Control.Monad                 ((<=<))
-import           Control.Monad.Fail
 import           Control.Monad.IO.Class        (MonadIO (..))
 import           Data.Aeson                    (FromJSON, ToJSON)
 import qualified Data.Aeson                    as Ae
@@ -303,7 +302,7 @@ instance Read a => Readable (Shown a) where
   readFrom_ = fmap Shown . (readM :: String -> IO a)  <=< readFrom_
 
 instance FromJSON a => Readable (Yaml a) where
-  readFrom_ = either (throwIO . userError) (return . Yaml) . Y.decodeEither <=< readFrom_
+  readFrom_ = either throwIO (return . Yaml) . Y.decodeEither' <=< readFrom_
 
 instance FromJSON a => Readable (JSON a) where
   readFrom_ = either (throwIO . userError) (return . JSON) . Ae.eitherDecode <=< readFrom_

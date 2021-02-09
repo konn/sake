@@ -65,6 +65,7 @@ library
     , tagsoup
     , template-haskell
     , text
+    , doclayout
     , text-icu
     , time
     , unordered-containers
