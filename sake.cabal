@@ -1,10 +1,8 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
---
--- hash: 65e79bbecf1065c0af9aa0d6609246103aafdb4ef5df8e703540bb75bb7459fa
 
 name:           sake
 version:        0.1.0.0
@@ -35,44 +33,6 @@ flag example
   default: False
 
 library
-  hs-source-dirs:
-      src
-  default-extensions: OverloadedStrings DeriveAnyClass DeriveGeneric MultiParamTypeClasses
-  ghc-options: -Wall
-  build-depends:
-      aeson
-    , base >=4.7 && <5
-    , blaze-html
-    , bytestring
-    , containers
-    , contravariant
-    , cryptohash-sha256
-    , data-default
-    , directory
-    , doctemplates
-    , filepath
-    , hashable
-    , megaparsec
-    , mtl
-    , operational
-    , pandoc
-    , pandoc-types
-    , reflection
-    , shake
-    , shakespeare
-    , stache
-    , store
-    , tagsoup
-    , template-haskell
-    , text
-    , doclayout
-    , text-icu
-    , time
-    , unordered-containers
-    , wai
-    , wai-app-static
-    , warp
-    , yaml
   exposed-modules:
       Web.Sake
       Web.Sake.Class
@@ -91,10 +51,54 @@ library
       Web.Sake.Template.Mustache
   other-modules:
       Web.Sake.Utils
+  hs-source-dirs:
+      src
+  default-extensions:
+      OverloadedStrings
+      DeriveAnyClass
+      DeriveGeneric
+      MultiParamTypeClasses
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , blaze-html
+    , bytestring
+    , containers
+    , contravariant
+    , cryptohash-sha256
+    , data-default
+    , directory
+    , doclayout
+    , doctemplates
+    , filepath
+    , hashable
+    , megaparsec
+    , mtl
+    , operational
+    , pandoc
+    , pandoc-types
+    , reflection
+    , shake
+    , shakespeare
+    , stache
+    , store
+    , tagsoup
+    , template-haskell
+    , text
+    , text-icu
+    , time
+    , unordered-containers
+    , wai
+    , wai-app-static
+    , warp
+    , yaml
   default-language: Haskell2010
 
 executable site
   main-is: Main.hs
+  other-modules:
+      Paths_sake
   hs-source-dirs:
       app
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N -Wall
@@ -102,6 +106,7 @@ executable site
       base >=4.7 && <5
     , contravariant
     , data-default
+    , doclayout
     , filepath
     , megaparsec
     , pandoc
@@ -117,6 +122,4 @@ executable site
     buildable: True
   else
     buildable: False
-  other-modules:
-      Paths_sake
   default-language: Haskell2010

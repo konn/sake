@@ -30,6 +30,8 @@ module Web.Sake.Item
 where
 
 import qualified Data.Aeson as A
+import qualified Data.Aeson.Key as AK
+import qualified Data.Aeson.KeyMap as KM
 import Data.Foldable (asum)
 import qualified Data.HashMap.Strict as HM
 import Data.Hashable (Hashable)
@@ -140,7 +142,7 @@ readPandoc opts i@Item {..} = do
           { readerExtensions = readerExtensions opts <> exts
           }
         itemBody
-    let A.Success metaPanDef = A.fromJSON $ A.toJSON $ HM.filter isMetaValue itemMetadata
+    let A.Success metaPanDef = A.fromJSON $ A.toJSON $ KM.filter isMetaValue itemMetadata
         metaPan' = metaPan <> metaPanDef
         A.Object panMeta = A.toJSON $ fromMetaValue <$> unMeta metaPan
         metadata' = itemMetadata <> panMeta
@@ -185,7 +187,7 @@ loadMetadata path = (itemMetadata :: Item MetadataOnly -> Metadata) <$> loadItem
 
 lookupMetadata :: A.FromJSON b => Text -> Item a -> Maybe b
 lookupMetadata key Item {itemMetadata} =
-  maybeResult . A.fromJSON =<< HM.lookup key itemMetadata
+  maybeResult . A.fromJSON =<< KM.lookup (AK.fromText key) itemMetadata
 
 maybeResult :: A.Result a -> Maybe a
 maybeResult (A.Success a) = Just a

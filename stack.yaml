@@ -1,4 +1,4 @@
-resolver: lts-17.2
+resolver: lts-19.3
 
 packages:
   - .
@@ -6,11 +6,6 @@ packages:
 extra-deps:
 - git: git@github.com:konn/latex-crossref.git
   commit: 79c9ac25f2bb1bfcb40f261a0ea4ffaefd295067
-- pandoc-2.11.4
-- citeproc-0.3.0.7@sha256:662fde1a8eaa43ee4b9870cf7e17f911d87662181fb0f28c3d60a85317dbe9b4,5590
-- commonmark-0.1.1.4@sha256:8717891c53c124ff64187c463619450241a41c0951cda2a43267d40f78992362,3278
-- commonmark-extensions-0.2.0.4@sha256:6a437bcfa3c757af4262b71336513619990eafb5cfdc33e57a499c93ad225608,3184
-- commonmark-pandoc-0.2.0.1@sha256:529c6e2c6cabf61558b66a28123eafc1d90d3324be29819f59f024e430312c1f,1105
 
 extra-lib-dirs:
   - /usr/local/opt/icu4c/lib

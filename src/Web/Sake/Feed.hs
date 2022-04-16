@@ -12,6 +12,7 @@ where
 
 import Control.Monad ((<=<))
 import Data.Aeson
+import qualified Data.Aeson.KeyMap as KM
 import Data.Char (toLower)
 import Data.Default (Default (def))
 import qualified Data.HashMap.Strict as HM
@@ -133,12 +134,12 @@ renderFeed tmpl conf itemCtx is = do
           mapMaybe
             ( parseTimeM @Maybe @ZonedTime True defaultTimeLocale "%Y-%m-%dT%H:%M:%S%z"
                 <=< maybeResult . fromJSON
-                <=< HM.lookup "updated"
+                <=< KM.lookup "updated"
             )
             items
       obj =
-        HM.fromList [("items", toJSON items), ("updated", toJSON upd)]
-          <> HM.delete "dateformat" dic
+        KM.fromList [("items", toJSON items), ("updated", toJSON upd)]
+          <> KM.delete "dateformat" dic
   Right src <- applyToMetadata tmpl obj
   return src
 

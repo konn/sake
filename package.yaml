@@ -35,6 +35,7 @@ dependencies:
 - warp
 - contravariant
 - data-default
+- doclayout
 - filepath
 - megaparsec
 - pandoc

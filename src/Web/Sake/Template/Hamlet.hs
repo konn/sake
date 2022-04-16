@@ -14,6 +14,7 @@ import           Control.Arrow                 (left, (+++))
 import           Control.Exception             (SomeException (..))
 import           Data.Aeson                    (Value (..))
 import qualified Data.Aeson                    as A
+import qualified Data.Aeson.KeyMap             as KM
 import qualified Data.Foldable                 as F
 import qualified Data.HashMap.Strict           as HM
 import qualified Data.Map                      as M
@@ -34,7 +35,8 @@ instance Templatable HamletTemplate where
     return $ left showSomeException $ parseHamletTemplate defaultHamletSettings $ T.unpack src
   applyToMetadata tmpl meta =
     return $ (showSomeException +++ (LT.toStrict . renderHtml)) $ do
-      v <- left (SomeException . userError) $ traverse valueToHamlet meta
+      v <- left (SomeException . userError) $ traverse valueToHamlet
+        $ KM.toHashMapText meta
       renderHamletTemplate tmpl $ M.fromList $ HM.toList v
 
 showSomeException :: SomeException -> String

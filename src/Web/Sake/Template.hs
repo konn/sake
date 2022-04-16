@@ -38,6 +38,8 @@ import Data.Aeson
     encode,
     toJSON,
   )
+import qualified Data.Aeson.Key as AK
+import qualified Data.Aeson.KeyMap as KM
 import Data.Functor.Contravariant (Contravariant (..))
 import qualified Data.HashMap.Strict as HM
 import Data.Text (Text)
@@ -122,17 +124,17 @@ loadAndApplyTemplate _ identifier context item = do
   applyTemplate (tpl :: tmpl) context item
 
 field :: ToJSON a => String -> (forall m. MonadSake m => Item b -> m a) -> Context b
-field k mk = Context $ fmap (HM.singleton (T.pack k) . toJSON) . mk
+field k mk = Context $ fmap (KM.singleton (AK.fromString k) . toJSON) . mk
 
 field_ :: ToJSON a1 => String -> (Item a2 -> a1) -> Context a2
-field_ k mk = Context $ return . HM.singleton (T.pack k) . toJSON . mk
+field_ k mk = Context $ return . KM.singleton (AK.fromString k) . toJSON . mk
 
 constField :: ToJSON a => String -> a -> Context b
 constField k v =
   Context $
     const $
       return $
-        HM.singleton (T.pack k) $ toJSON v
+        KM.singleton (AK.fromString k) $ toJSON v
 
 objectContext :: ToJSON a => a -> Context b
 objectContext v = Context $ \_ ->
