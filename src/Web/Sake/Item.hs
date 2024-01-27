@@ -10,24 +10,23 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 
-module Web.Sake.Item
-  ( Item (..),
-    loadItem,
-    loadBinary,
-    loadJSON,
-    loadYaml,
-    readPandoc,
-    writePandoc,
-    compilePandoc,
-    loadMetadata,
-    lookupMetadata,
-    itemPath,
-    setItemBody,
-    itemDate',
-    itemPublishedDate,
-    itemUpdatedDate,
-  )
-where
+module Web.Sake.Item (
+  Item (..),
+  loadItem,
+  loadBinary,
+  loadJSON,
+  loadYaml,
+  readPandoc,
+  writePandoc,
+  compilePandoc,
+  loadMetadata,
+  lookupMetadata,
+  itemPath,
+  setItemBody,
+  itemDate',
+  itemPublishedDate,
+  itemUpdatedDate,
+) where
 
 import qualified Data.Aeson as A
 import qualified Data.Aeson.Key as AK
@@ -41,29 +40,30 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as LT
 import qualified Data.Text.Lazy.Encoding as LT
-import Data.Time
-  ( ZonedTime,
-    defaultTimeLocale,
-    parseTimeM,
-    utcToLocalZonedTime,
-  )
+import Data.Time (
+  ZonedTime,
+  defaultTimeLocale,
+  parseTimeM,
+  utcToLocalZonedTime,
+ )
 import GHC.Generics (Generic)
 import System.Directory (getModificationTime)
 import System.FilePath (takeExtension)
-import Text.Pandoc
-  ( MetaValue (..),
-    Pandoc (..),
-    PandocIO,
-    Reader (..),
-    ReaderOptions,
-    WriterOptions,
-    getReader,
-    readerExtensions,
-    runIO,
-    unMeta,
-    writeHtml5String,
-    writerExtensions,
-  )
+import Text.Pandoc (
+  MetaValue (..),
+  Pandoc (..),
+  PandocIO,
+  Reader (..),
+  ReaderOptions,
+  WriterOptions,
+  getReader,
+  readerExtensions,
+  runIO,
+  unMeta,
+  writeHtml5String,
+  writerExtensions,
+ )
+import Text.Pandoc.Format (parseFlavoredFormat)
 import Text.Pandoc.Shared (stringify)
 import Web.Sake.Class
 import Web.Sake.Identifier
@@ -129,11 +129,11 @@ isMetaValue val =
 {- | Compile the given @'Item'@ into @'Pandoc'@, taking care of metadatas.
    Format is deteremined by extension.
 -}
-readPandoc :: MonadSake m => ReaderOptions -> Item Text -> m (Item Pandoc)
+readPandoc :: (MonadSake m) => ReaderOptions -> Item Text -> m (Item Pandoc)
 readPandoc opts i@Item {..} = do
   let ext = takeExtension $ runIdentifier itemIdentifier
-      format = fromMaybe (T.pack ext) $ lookup (drop 1 ext) extensionDict
   runPandoc $ do
+    format <- parseFlavoredFormat $ fromMaybe (T.pack ext) $ lookup (drop 1 ext) extensionDict
     (rd, exts) <- getReader format
     Pandoc metaPan body <-
       feedReader
@@ -160,14 +160,14 @@ fromMetaValue (MetaString s) = A.toJSON s
 fromMetaValue (MetaInlines inl) = A.toJSON $ stringify inl
 fromMetaValue (MetaBlocks bls) = A.toJSON $ stringify bls
 
-runPandoc :: MonadSake m => PandocIO b -> m b
+runPandoc :: (MonadSake m) => PandocIO b -> m b
 runPandoc act =
   liftIO (runIO act) >>= \case
     Left err -> error $ show err
     Right pan -> return pan
 
 -- | Write HTML by Pandoc.
-writePandoc :: MonadSake m => WriterOptions -> Item Pandoc -> m (Item Text)
+writePandoc :: (MonadSake m) => WriterOptions -> Item Pandoc -> m (Item Text)
 writePandoc opts i@Item {..} =
   runPandoc $ do
     src <-
@@ -178,14 +178,14 @@ writePandoc opts i@Item {..} =
         itemBody
     return $ i {itemBody = src}
 
-compilePandoc :: MonadSake m => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
+compilePandoc :: (MonadSake m) => ReaderOptions -> WriterOptions -> Item Text -> m (Item Text)
 compilePandoc rOpt wOpt i =
   readPandoc rOpt i >>= writePandoc wOpt
 
-loadMetadata :: MonadSake m => FilePath -> m Metadata
+loadMetadata :: (MonadSake m) => FilePath -> m Metadata
 loadMetadata path = (itemMetadata :: Item MetadataOnly -> Metadata) <$> loadItem path
 
-lookupMetadata :: A.FromJSON b => Text -> Item a -> Maybe b
+lookupMetadata :: (A.FromJSON b) => Text -> Item a -> Maybe b
 lookupMetadata key Item {itemMetadata} =
   maybeResult . A.fromJSON =<< KM.lookup (AK.fromText key) itemMetadata
 
@@ -199,13 +199,13 @@ setItemBody bdy i = i {itemBody = bdy}
 itemPath :: Item a -> FilePath
 itemPath = runIdentifier . itemIdentifier
 
-itemPublishedDate :: MonadIO m => Item a -> m ZonedTime
+itemPublishedDate :: (MonadIO m) => Item a -> m ZonedTime
 itemPublishedDate = itemDate' ["published", "date"] []
 
-itemUpdatedDate :: MonadIO m => Item a -> m ZonedTime
+itemUpdatedDate :: (MonadIO m) => Item a -> m ZonedTime
 itemUpdatedDate = itemDate' ["updated", "date"] []
 
-itemDate' :: MonadIO m => [Text] -> [String] -> Item a -> m ZonedTime
+itemDate' :: (MonadIO m) => [Text] -> [String] -> Item a -> m ZonedTime
 itemDate' fields fmt0 item =
   let mdate = asum [readT =<< lookupMetadata f item | f <- fields]
    in case mdate of
